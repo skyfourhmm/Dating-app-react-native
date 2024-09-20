@@ -1,9 +1,8 @@
 import { View, Text } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Auth from "../common/Auth";
-import React from "react";
 import { useSelector } from "react-redux";
 
 function MainLayout({ children }) {
