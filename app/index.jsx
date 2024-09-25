@@ -6,9 +6,7 @@ import store from "../redux/store";
 export default function Index() {
   return (
     <Provider store={store}>
-      <MainLayout>
-        <Text>Dating app starting...</Text>
-      </MainLayout>
+      <MainLayout />
     </Provider>
   );
 }

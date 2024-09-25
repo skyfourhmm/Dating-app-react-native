@@ -1,10 +1,12 @@
-import { Text, View } from "react-native";
+import React from "react";
+import { View, Text } from "react-native";
 
-const Heart = () => {
+function Heart() {
   return (
     <View>
-      <Text>Chat</Text>
+      <Text>Heart</Text>
     </View>
   );
-};
+}
+
 export default Heart;

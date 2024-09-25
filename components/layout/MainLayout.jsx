@@ -4,8 +4,10 @@ import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
 import Auth from "../common/Auth";
 import { useSelector } from "react-redux";
+import FooterNavigation from "../common/FooterNavigation";
+import { NavigationContainer } from "@react-navigation/native";
 
-function MainLayout({ children }) {
+function MainLayout() {
   const [loaded, error] = useFonts({
     "Inter-Bold": require("../../assets/fonts/NetflixSans-Bold.otf"),
     "Inter-Light": require("../../assets/fonts/NetflixSans-Light.otf"),
@@ -31,7 +33,15 @@ function MainLayout({ children }) {
 
   return (
     <React.Fragment>
-      {false ? <Auth /> : <View style={{ flex: 1 }}>{children}</View>}
+      {false ? (
+        <Auth />
+      ) : (
+        <NavigationContainer independent={true}>
+          <View style={{ flex: 1 }}>
+            <FooterNavigation />
+          </View>
+        </NavigationContainer>
+      )}
     </React.Fragment>
   );
 }
