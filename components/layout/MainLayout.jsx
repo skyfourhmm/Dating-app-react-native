@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Auth from "../common/Auth";
 import { useSelector } from "react-redux";
 
@@ -12,6 +12,8 @@ function MainLayout({ children }) {
     "Inter-Medium": require("../../assets/fonts/NetflixSans-Medium.otf"),
     "Inter-Regular": require("../../assets/fonts/NetflixSans-Regular.otf"),
   });
+
+  const auth = useSelector((state) => state.auth.authOpen);
 
   useEffect(() => {
     if (loaded || error) {
@@ -27,13 +29,7 @@ function MainLayout({ children }) {
   Text.defaultProps = Text.defaultProps || {};
   Text.defaultProps.style = { fontFamily: "Inter-Regular" };
 
-  const auth = useSelector((state) => state.auth.authOpen);
-
-  return (
-    <React.Fragment>
-      {auth ? <Auth /> : <View style={{ flex: 1 }}>{children}</View>}
-    </React.Fragment>
-  );
+  return <>{false ? <Auth /> : <View style={{ flex: 1 }}>{children}</View>}</>;
 }
 
 export default MainLayout;
