@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import Auth from "../common/Auth";
 import { useSelector } from "react-redux";
 
@@ -29,7 +29,11 @@ function MainLayout({ children }) {
   Text.defaultProps = Text.defaultProps || {};
   Text.defaultProps.style = { fontFamily: "Inter-Regular" };
 
-  return <>{false ? <Auth /> : <View style={{ flex: 1 }}>{children}</View>}</>;
+  return (
+    <React.Fragment>
+      {false ? <Auth /> : <View style={{ flex: 1 }}>{children}</View>}
+    </React.Fragment>
+  );
 }
 
 export default MainLayout;
