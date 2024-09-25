@@ -31,7 +31,7 @@ function MainLayout({ children }) {
 
   return (
     <React.Fragment>
-      {auth ? <Auth /> : <View style={{ flex: 1 }}>{children}</View>}
+      {false ? <Auth /> : <View style={{ flex: 1 }}>{children}</View>}
     </React.Fragment>
   );
 }

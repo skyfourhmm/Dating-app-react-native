@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-function Home() {
+function Heart() {
   return (
     <View>
-      <Text>Home</Text>
+      <Text>Heart</Text>
     </View>
   );
 }
 
-export default Home;
+export default Heart;

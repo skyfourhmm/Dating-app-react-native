@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-function Home() {
+function Chat() {
   return (
     <View>
-      <Text>Home</Text>
+      <Text>Chat</Text>
     </View>
   );
 }
 
-export default Home;
+export default Chat;
