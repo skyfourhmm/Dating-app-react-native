@@ -13,6 +13,8 @@ function MainLayout({ children }) {
     "Inter-Regular": require("../../assets/fonts/NetflixSans-Regular.otf"),
   });
 
+  const auth = useSelector((state) => state.auth.authOpen);
+
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
@@ -26,8 +28,6 @@ function MainLayout({ children }) {
   // Thiết lập font mặc định cho tất cả Text components
   Text.defaultProps = Text.defaultProps || {};
   Text.defaultProps.style = { fontFamily: "Inter-Regular" };
-
-  const auth = useSelector((state) => state.auth.authOpen);
 
   return (
     <React.Fragment>
