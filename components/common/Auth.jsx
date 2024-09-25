@@ -1,7 +1,9 @@
 import { View, Image } from "react-native";
 import { Text, Card, Button, IconButton } from "react-native-paper";
 
-function Auth() {
+function Auth({ navigation }) {
+  console.log(navigation);
+
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
