@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
+import HeaderHeart from "../components/common/HeaderHeart";
 
 function Heart() {
   return (
     <View>
-      <Text>Heart</Text>
+      <HeaderHeart />
     </View>
   );
 }
