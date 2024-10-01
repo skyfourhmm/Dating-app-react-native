@@ -1,5 +1,6 @@
 import Feather from "@expo/vector-icons/Feather";
-import Home from "../../pages/Home";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Profile from "../../pages/Profile";
 import Heart from "../../pages/Heart";
 import Save from "../../pages/Save";
 import Chat from "../../pages/Chat";
@@ -9,7 +10,7 @@ const FooterNavigation = () => {
   const Tab = createBottomTabNavigator();
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Profile"
       screenOptions={{
         tabBarActiveTintColor: "#00bdd6",
         tabBarShowLabel: false,
@@ -17,11 +18,11 @@ const FooterNavigation = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Profile"
+        component={Profile}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Feather name="home" size={size} color={color} />
+            <FontAwesome6 name="user" size={size} color={color} />
           ),
         }}
       />
