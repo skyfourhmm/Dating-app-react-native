@@ -8,10 +8,11 @@ import {
   FlatList,
 } from "react-native";
 import { Button, Checkbox, Icon } from "react-native-paper";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingHorizontal: 20,
     flex: 1,
     backgroundColor: "#ffffff",
   },
@@ -95,6 +96,8 @@ const features = [
     type: ["Premium"],
   },
 ];
+
+const Stack = createStackNavigator();
 
 function Profile() {
   return (
@@ -206,7 +209,7 @@ function Profile() {
                   </View>
                   <View style={{ flex: 2, alignItems: "center" }}>
                     <Checkbox
-                      disabled={true}
+                      disabled={false}
                       status={
                         item.type.includes("Free") ? "checked" : "unchecked"
                       }
@@ -215,7 +218,7 @@ function Profile() {
                   </View>
                   <View style={{ flex: 2, alignItems: "center" }}>
                     <Checkbox
-                      disabled={true}
+                      disabled={false}
                       status="checked"
                       color="#00bdd6"
                     />

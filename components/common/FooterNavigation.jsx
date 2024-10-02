@@ -4,6 +4,7 @@ import Profile from "../../pages/Profile";
 import Heart from "../../pages/Heart";
 import Save from "../../pages/Save";
 import Chat from "../../pages/Chat";
+import EditProfile from "../EditProfile";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const FooterNavigation = () => {
@@ -19,7 +20,7 @@ const FooterNavigation = () => {
     >
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={EditProfile}
         options={{
           tabBarIcon: ({ color, size }) => (
             <FontAwesome6 name="user" size={size} color={color} />
