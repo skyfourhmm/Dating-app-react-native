@@ -2,6 +2,7 @@ import { View, Image, Text } from "react-native";
 import { useState } from "react";
 import { Chip, IconButton } from "react-native-paper";
 import Colors from "../../constants/Colors";
+import TagChip from "./TagChip";
 
 function BannerInfo() {
   const userData = {
@@ -49,19 +50,11 @@ function BannerInfo() {
             {` ,${data.age}`}
           </Text>
         </View>
-        <Chip
-          elevated
-          onPress={() => {}}
-          style={{
-            backgroundColor: "#edfbfa",
-            borderRadius: 100,
-            marginTop: 8,
-            alignSelf: "flex-start",
-          }}
-          selectedColor={Colors.light.secondary}
-        >
-          {data.gender}
-        </Chip>
+        <TagChip
+          label={data.gender}
+          bgColor={"#edfbfa"}
+          color={Colors.light.secondary}
+        />
         <View
           style={{
             flexDirection: "row",
