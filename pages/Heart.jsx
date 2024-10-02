@@ -14,53 +14,11 @@ import BannerInfo from "../components/common/BannerInfo";
 import PlaceCart from "../components/common/PlaceCart";
 import TagChip from "@/components/common/TagChip";
 import { IconButton } from "react-native-paper";
+import { userData } from "../assets/fakedata/users";
 
 const { width } = Dimensions.get("window");
 
 function Heart() {
-  const userData = {
-    name: "Ariana",
-    age: 25,
-    imageUrl: {
-      mainPhoto:
-        "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGluZGVyJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-      otherPhotos: [
-        "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGluZGVyJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-        "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGluZGVyJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-        "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGluZGVyJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
-      ],
-    },
-    gender: "Nữ",
-    job: "Nhân viên văn phòng ở caliphornia",
-    address: "LAS VERGAS, NV 89104",
-    describe:
-      "It would be wonderful to meet someone who appreciates the artsand enjoys exploring the vibrant culture of the city. I value open-mindedness, good communication, and a shared passion for classical music and fine arts. Also, mother of 2 cats ;",
-    tags: [
-      {
-        id: 1,
-        icon: "ruler",
-        title: "168 cm",
-      },
-      {
-        id: 2,
-        icon: "smoking-off",
-        title: "No smoker",
-      },
-      {
-        id: 3,
-        icon: "dog",
-        title: "Lover animal",
-      },
-      {
-        id: 4,
-        icon: "gamepad-square-outline",
-        title: "Gamer",
-      },
-    ],
-    enjoys: ["Travel", "Cooking", "Reading", "Music", "Dance", "Sport"],
-    comumunicates: ["English", "Vietnamese", "Chinese", "Japanese", "Korean"],
-  };
-
   return (
     <View style={{ flex: 1 }}>
       <HeaderHeart />
@@ -97,8 +55,8 @@ function Heart() {
                 I enjoy
               </Text>
               <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                {userData.enjoys.map((enjoy) => (
-                  <TagChip label={enjoy} />
+                {userData.enjoys.map((enjoy, index) => (
+                  <TagChip key={index} label={enjoy} />
                 ))}
               </View>
             </View>
@@ -109,8 +67,8 @@ function Heart() {
                 I comumunicate in
               </Text>
               <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                {userData.comumunicates.map((language) => (
-                  <TagChip label={language} />
+                {userData.comumunicates.map((language, index) => (
+                  <TagChip key={index} label={language} />
                 ))}
               </View>
             </View>
