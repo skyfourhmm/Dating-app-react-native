@@ -1,23 +1,19 @@
 import { useState } from "react";
-import {
-  View,
-  Image,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  TextInput,
-} from "react-native";
-import {
-  ProgressBar,
-  Avatar,
-  Text,
-  Icon,
-  PaperProvider,
-} from "react-native-paper";
-import { MultiSelectDropdown } from "react-native-paper-dropdown";
+import { View, Image, StyleSheet, ScrollView, TextInput } from "react-native";
+import { ProgressBar, Avatar, Text, Icon, Button } from "react-native-paper";
+import SectionedMultiSelect from "react-native-sectioned-multi-select";
+import { MaterialIcons as MIcon } from "@expo/vector-icons";
 
 const style = StyleSheet.create({
-  container: { padding: 10, gap: 50 },
+  container: { padding: 10, gap: 50, backgroundColor: "white" },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: "gray",
+  },
   process: {
     marginBottom: 20,
   },
@@ -43,6 +39,13 @@ const style = StyleSheet.create({
   communicate: {
     marginBottom: 20,
   },
+  multiSelectBox: {
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: "#bbb",
+    padding: 5,
+    marginBottom: 6,
+  },
   linkedAccount: {
     marginBottom: 20,
   },
@@ -58,16 +61,42 @@ const language = [
   { id: 2, name: "VietNamese" },
 ];
 
-const EditProfile = () => {
+const EditProfile = ({ navigation }) => {
   const [selectedEnjoy, setSelectedEnjoy] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [aboutMe, setAboutMe] = useState("");
+  const process = 45;
 
   return (
     <ScrollView style={style.container}>
+      <View style={style.header}>
+        <View>
+          <Button
+            icon="chevron-left"
+            textColor="black"
+            style={{ justifyContent: "center" }}
+            onPress={() => navigation.navigate("Profile")}
+          ></Button>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 24, marginHorizontal: 50 }}>
+            Edit Profile
+          </Text>
+        </View>
+      </View>
+
       <View style={style.process}>
-        <Text>Profile completion: 45%</Text>
-        <ProgressBar progress={0.5} color="#00bdd6" />
+        <Text style={{ fontWeight: "bold", marginBottom: 10 }}>
+          Profile completion:
+          <Text style={{ color: "#00bdd6", fontWeight: "bold" }}>
+            {process}%
+          </Text>
+        </Text>
+        <ProgressBar
+          progress={process / 100}
+          color="#00bdd6"
+          style={{ height: 10, borderRadius: 20, backgroundColor: "#a6f5ff" }}
+        />
       </View>
 
       <View style={style.photos}>
@@ -82,25 +111,36 @@ const EditProfile = () => {
             The main photo is how you appear to others on the swipe view
           </Text>
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 2 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            gap: 40,
+          }}
+        >
+          <View style={{ flex: 3 }}>
             <Image
               source={require("../assets/images/logo.png")}
-              style={{ height: 300, width: 200 }}
+              style={{ height: 310, width: 200 }}
             />
           </View>
-          <View style={{ flex: 1 }}>
+          <View
+            style={{
+              flex: 2,
+              gap: 5,
+              alignItems: "center",
+            }}
+          >
             <Image
               source={require("../assets/images/logo.png")}
-              style={{ height: 100, width: 120 }}
+              style={{ height: 100, width: 150 }}
             />
             <Image
               source={require("../assets/images/logo.png")}
-              style={{ height: 100, width: 120 }}
+              style={{ height: 100, width: 150 }}
             />
             <Image
               source={require("../assets/images/logo.png")}
-              style={{ height: 100, width: 120 }}
+              style={{ height: 100, width: 150 }}
             />
           </View>
         </View>
@@ -118,7 +158,6 @@ const EditProfile = () => {
         </Text>
         <TextInput
           style={{
-            height: 100,
             borderColor: "gray",
             borderWidth: 1,
             marginTop: 10,
@@ -274,15 +313,19 @@ const EditProfile = () => {
         <Text variant="bodySmall">
           Adding your interest is a great way to find like-minded connection
         </Text>
-        <PaperProvider>
-          <MultiSelectDropdown
-            label={"Enjoy"}
-            placeholder="Select Enjoy"
-            options={enjoy}
-            value={selectedEnjoy}
-            onSelect={(value) => setSelectedEnjoy(value)}
+        <View>
+          <SectionedMultiSelect
+            items={enjoy}
+            IconRenderer={MIcon}
+            uniqueKey="id"
+            onSelectedItemsChange={setSelectedEnjoy}
+            selectedItems={selectedEnjoy}
+            selectText="Choose something..."
+            searchPlaceholderText="Search something..."
+            colors={{ primary: "#00bdd6" }}
+            styles={{ selectToggle: style.multiSelectBox }}
           />
-        </PaperProvider>
+        </View>
       </View>
 
       <View style={style.communicate}>
@@ -292,15 +335,19 @@ const EditProfile = () => {
         >
           I communicate in
         </Text>
-        <PaperProvider>
-          <MultiSelectDropdown
-            label={"Language"}
-            placeholder="Select Language"
-            options={enjoy}
-            value={selectedLanguage}
-            onSelect={(value) => setSelectedLanguage(value)}
+        <View style={{ borderRadius: 20 }}>
+          <SectionedMultiSelect
+            items={language}
+            IconRenderer={MIcon}
+            uniqueKey="id"
+            onSelectedItemsChange={setSelectedLanguage}
+            selectedItems={selectedLanguage}
+            selectText="Choose some languages..."
+            searchPlaceholderText="Search languages..."
+            colors={{ primary: "#00bdd6" }}
+            styles={{ selectToggle: style.multiSelectBox }}
           />
-        </PaperProvider>
+        </View>
       </View>
 
       <View style={style.linkedAccount}>

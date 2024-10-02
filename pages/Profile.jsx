@@ -99,7 +99,7 @@ const features = [
 
 const Stack = createStackNavigator();
 
-function Profile() {
+function Profile({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.menu}>
@@ -129,7 +129,10 @@ function Profile() {
               <Icon source="shield-check" color="gray" size={12} />
             </View>
             <View style={styles.header_button_edit_profile}>
-              <Button onPress={() => alert("Pressed")} textColor="#00bdd6">
+              <Button
+                onPress={() => navigation.navigate("EditProfile")}
+                textColor="#00bdd6"
+              >
                 Edit your profile
               </Button>
               <Icon source="chevron-right" color={"#00bdd6"} size={20} />

@@ -6,6 +6,17 @@ import Save from "../../pages/Save";
 import Chat from "../../pages/Chat";
 import EditProfile from "../EditProfile";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const ProfilePage = () => {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
+      <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
+    </Stack.Navigator>
+  );
+};
 
 const FooterNavigation = () => {
   const Tab = createBottomTabNavigator();
@@ -20,7 +31,7 @@ const FooterNavigation = () => {
     >
       <Tab.Screen
         name="Profile"
-        component={EditProfile}
+        component={ProfilePage}
         options={{
           tabBarIcon: ({ color, size }) => (
             <FontAwesome6 name="user" size={size} color={color} />
