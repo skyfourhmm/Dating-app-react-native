@@ -10,7 +10,7 @@ function BannerInfo() {
     imageUrl:
       "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGluZGVyJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
     gender: "Nữ",
-    job: "Nhân viên văn phòng ở caliphorniadaDSFDS",
+    job: "Nhân viên văn phòng ở caliphorniadaDSFDSssssssssssssssss",
   };
 
   const [data, setData] = useState(userData);
@@ -52,7 +52,15 @@ function BannerInfo() {
             iconColor={"#edfbfa"}
             onPress={() => {}}
           />
-          <Text style={{ color: "#edfbfa", fontSize: 16, fontWeight: 600 }}>
+          <Text
+            style={{
+              color: "#edfbfa",
+              fontSize: 16,
+              fontWeight: 600,
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             {data.job}
           </Text>
         </View>

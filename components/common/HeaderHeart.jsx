@@ -1,7 +1,10 @@
 import { View, Text } from "react-native";
-import { IconButton, FAB } from "react-native-paper";
+import { IconButton, FAB, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import React from "react";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import * as Progress from "react-native-progress";
 
 function HeaderHeart() {
   return (
@@ -12,15 +15,19 @@ function HeaderHeart() {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          paddingHorizontal: 16,
+          paddingHorizontal: 8,
         }}
       >
         <View style={{ flexDirection: "row", width: 60 }}>
-          <IconButton icon="menu" size={24} onPress={() => {}} />
-          <IconButton icon="reload" size={24} onPress={() => {}} />
+          <View style={{ width: 30 }}>
+            <IconButton icon="menu" size={24} onPress={() => {}} />
+          </View>
+          <View style={{ width: 30, paddingLeft: 10 }}>
+            <IconButton icon="reload" size={24} onPress={() => {}} />
+          </View>
         </View>
         <View>
-          <Text style={{ fontSize: 16, fontWeight: 600 }}>HeartSync</Text>
+          <Text style={{ fontSize: 20, fontWeight: 600 }}>HeartSync</Text>
         </View>
         <View>
           <FAB
@@ -35,27 +42,21 @@ function HeaderHeart() {
       <View
         style={{
           width: "50%",
-          height: 5,
           flexDirection: "row",
           marginHorizontal: "auto",
           borderRadius: 50,
           marginBottom: 16,
+          justifyContent: "center",
         }}
       >
-        <View
-          style={{
-            backgroundColor: Colors.light.secondary,
-            height: "100%",
-            width: "50%",
-          }}
-        ></View>
-        <View
-          style={{
-            backgroundColor: Colors.light.primary,
-            height: "100%",
-            width: "50%",
-          }}
-        ></View>
+        <Progress.Bar
+          progress={0.5}
+          width={150}
+          height={6}
+          borderWidth={0}
+          unfilledColor={Colors.light.primary}
+          color={Colors.light.secondary}
+        />
       </View>
     </React.Fragment>
   );
