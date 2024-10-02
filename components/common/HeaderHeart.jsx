@@ -2,8 +2,6 @@ import { View, Text } from "react-native";
 import { IconButton, FAB, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import React from "react";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Progress from "react-native-progress";
 
 function HeaderHeart() {
@@ -45,7 +43,6 @@ function HeaderHeart() {
           flexDirection: "row",
           marginHorizontal: "auto",
           borderRadius: 50,
-          marginBottom: 16,
           justifyContent: "center",
         }}
       >
