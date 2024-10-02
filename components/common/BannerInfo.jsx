@@ -5,7 +5,7 @@ import Colors from "../../constants/Colors";
 
 function BannerInfo() {
   const userData = {
-    name: "Văn Ngân",
+    name: "Văn Ngân Nga ngô thị nhi đông hà lục thẩm",
     age: 25,
     imageUrl:
       "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGluZGVyJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
@@ -23,9 +23,32 @@ function BannerInfo() {
         source={{ uri: data.imageUrl }}
       />
       <View style={{ position: "absolute", bottom: -620, left: 20 }}>
-        <Text style={{ fontSize: 20, fontWeight: 600, color: "#fdfdfd" }}>
-          {`${data.name}, ${data.age}`}
-        </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              fontSize: 30,
+              fontWeight: 600,
+              color: "#fdfdfd",
+              maxWidth: 200,
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {`${data.name}`}
+          </Text>
+          <Text
+            style={{
+              fontSize: 30,
+              fontWeight: 600,
+              color: "#fdfdfd",
+              maxWidth: 200,
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {` ,${data.age}`}
+          </Text>
+        </View>
         <Chip
           elevated
           onPress={() => {}}
@@ -33,7 +56,7 @@ function BannerInfo() {
             backgroundColor: "#edfbfa",
             borderRadius: 100,
             marginTop: 8,
-            maxWidth: 80,
+            alignSelf: "flex-start",
           }}
           selectedColor={Colors.light.secondary}
         >
@@ -42,16 +65,18 @@ function BannerInfo() {
         <View
           style={{
             flexDirection: "row",
-            alignItems: "baseline",
             marginLeft: -15,
+            alignItems: "center",
           }}
         >
-          <IconButton
-            icon="file-outline"
-            size={24}
-            iconColor={"#edfbfa"}
-            onPress={() => {}}
-          />
+          <View style={{ width: 30, marginRight: 10 }}>
+            <IconButton
+              icon="file-outline"
+              size={24}
+              iconColor={"#edfbfa"}
+              onPress={() => {}}
+            />
+          </View>
           <Text
             style={{
               color: "#edfbfa",
