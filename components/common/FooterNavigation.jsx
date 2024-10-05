@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Profile" component={Profile}></Stack.Screen>
+      <Stack.Screen name="ProfileStack" component={Profile}></Stack.Screen>
       <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
     </Stack.Navigator>
   );
