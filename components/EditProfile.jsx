@@ -75,7 +75,7 @@ const EditProfile = ({ navigation }) => {
             icon="chevron-left"
             textColor="black"
             style={{ justifyContent: "center" }}
-            onPress={() => navigation.navigate("Profile")}
+            onPress={() => navigation.navigate("ProfileStack")}
           ></Button>
         </View>
         <View style={{ flex: 1 }}>
