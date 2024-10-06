@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { View, Image, StyleSheet, ScrollView, TextInput } from "react-native";
-import { ProgressBar, Avatar, Text, Icon, Button } from "react-native-paper";
+import {
+  ProgressBar,
+  Avatar,
+  Text,
+  Icon,
+  Button,
+  IconButton,
+} from "react-native-paper";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { MaterialIcons as MIcon } from "@expo/vector-icons";
 
@@ -9,8 +16,8 @@ const style = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: -10,
     marginBottom: 10,
-    paddingBottom: 10,
     borderBottomWidth: 1,
     borderColor: "gray",
   },
@@ -71,12 +78,12 @@ const EditProfile = ({ navigation }) => {
     <ScrollView style={style.container}>
       <View style={style.header}>
         <View>
-          <Button
+          <IconButton
             icon="chevron-left"
-            textColor="black"
+            size={32}
             style={{ justifyContent: "center" }}
             onPress={() => navigation.navigate("ProfileStack")}
-          ></Button>
+          />
         </View>
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 24, marginHorizontal: 50 }}>
