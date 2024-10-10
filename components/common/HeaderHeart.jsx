@@ -1,12 +1,22 @@
 import { View, Text } from "react-native";
 import { IconButton, FAB, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
-import React from "react";
+import React, { useState } from "react";
 import * as Progress from "react-native-progress";
 
+import ModalFilter from "./ModalFilter";
+
 function HeaderHeart() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <React.Fragment>
+      {modalVisible && (
+        <ModalFilter
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+      )}
       <View
         style={{
           width: "100%",
@@ -32,7 +42,9 @@ function HeaderHeart() {
             icon={"transit-connection-variant"}
             size="small"
             style={{ margin: 8, backgroundColor: Colors.light.primary }}
-            onPress={() => {}}
+            onPress={() => {
+              setModalVisible(true);
+            }}
             mode="flat"
           />
         </View>
