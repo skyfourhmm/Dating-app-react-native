@@ -1,18 +1,15 @@
 import { View, Image, Text } from "react-native";
-import { useState } from "react";
 import { Chip, IconButton } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import TagChip from "./TagChip";
 
 function BannerInfo({ userData }) {
-  const [data, setData] = useState(userData);
-
   return (
     <View style={{ flex: 1, position: "relative" }}>
       <Image
-        style={{ width: "100%", height: 650, borderRadius: 16 }}
+        style={{ width: "100%", height: 640, borderRadius: 16 }}
         resizeMode="cover"
-        source={{ uri: data.imageUrl.mainPhoto }}
+        source={{ uri: userData?.imageUrl.mainPhoto }}
       />
       <View style={{ position: "absolute", bottom: 20, left: 20 }}>
         <View style={{ flexDirection: "row" }}>
@@ -26,7 +23,7 @@ function BannerInfo({ userData }) {
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {data.name}
+            {userData.name}
           </Text>
           <Text
             style={{
@@ -38,11 +35,11 @@ function BannerInfo({ userData }) {
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {` ,${data.age}`}
+            {` ,${userData.age}`}
           </Text>
         </View>
         <TagChip
-          label={data.gender}
+          label={userData.gender}
           bgColor={"#edfbfa"}
           color={Colors.light.secondary}
         />
@@ -70,7 +67,7 @@ function BannerInfo({ userData }) {
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {data.job}
+            {userData.job}
           </Text>
         </View>
       </View>

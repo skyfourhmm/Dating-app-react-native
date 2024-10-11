@@ -87,6 +87,18 @@ function ModalFilter({ modalVisible, setModalVisible }) {
 
   const [language, setLanguage] = useState("");
 
+  // Clear all
+
+  const handleClearAll = () => {
+    setGenderMale(false);
+    setGenderFemale(false);
+    setGenderNonbinary(false);
+    setSliderValues([18, 80]);
+    setDistance(10);
+    setSelectDistanceSwitch(true);
+    setLanguage("");
+  };
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -382,6 +394,7 @@ function ModalFilter({ modalVisible, setModalVisible }) {
                       paddingVertical: 20,
                       borderRadius: 10,
                     }}
+                    onPress={() => handleClearAll()}
                   >
                     <Text style={{ fontSize: 16 }}>Clear all</Text>
                   </TouchableOpacity>
