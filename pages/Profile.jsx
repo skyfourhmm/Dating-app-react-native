@@ -7,7 +7,7 @@ import {
   Image,
   FlatList,
 } from "react-native";
-import { Button, Checkbox, Icon } from "react-native-paper";
+import { Button, Checkbox, Icon, IconButton } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 
 const styles = StyleSheet.create({
@@ -104,10 +104,10 @@ function Profile({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.menu}>
         <View>
-          <Button icon="menu" textColor="black"></Button>
+          <IconButton icon="menu" size={24} onPress={() => {}} />
         </View>
         <View>
-          <Button icon="cog-outline" textColor="black"></Button>
+          <IconButton icon="cog-outline" size={24} onPress={() => {}} />
         </View>
       </View>
 
