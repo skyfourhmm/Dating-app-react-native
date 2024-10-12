@@ -84,10 +84,17 @@ function SwipeableCards() {
         translateX.value = withSpring(0);
         return;
       }
+
+      if (userData.length - 1 === currentIndex) {
+        translateX.value = withSpring(0);
+        return;
+      }
+
       translateX.value = withSpring(
-        hiddenTranslateX * Math.sign(event.velocityX)
+        hiddenTranslateX * Math.sign(event.velocityX),
+        {},
+        runOnJS(setCurrentIndex)(currentIndex + 1)
       );
-      runOnJS(setCurrentIndex)(currentIndex + 1);
 
       const onSwipe = event.velocityX > 0 ? onSwipeRight : onSwipeLeft;
       onSwipe && runOnJS(onSwipe)(currentProfile);
