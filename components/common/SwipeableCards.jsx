@@ -66,10 +66,10 @@ function SwipeableCards() {
   }));
 
   const likeStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(translateX.value, [0, hiddenTranslateX / 5], [0, 1]),
+    opacity: interpolate(translateX.value, [0, hiddenTranslateX / 6], [0, 1]),
   }));
   const nopeStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(translateX.value, [0, -hiddenTranslateX / 5], [0, 1]),
+    opacity: interpolate(translateX.value, [0, -hiddenTranslateX / 6], [0, 1]),
   }));
 
   const gestureHandler = useAnimatedGestureHandler({
