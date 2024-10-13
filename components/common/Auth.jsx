@@ -2,8 +2,6 @@ import { View, Image } from "react-native";
 import { Text, Card, Button, IconButton } from "react-native-paper";
 
 function Auth({ navigation }) {
-  console.log(navigation);
-
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -22,7 +20,7 @@ function Auth({ navigation }) {
       <View style={{ marginHorizontal: 10 }}>
         <Button
           mode="text"
-          onPress={() => console.log("Pressed")}
+          onPress={() => navigation.navigate("Profile")}
           buttonColor="#000"
           labelStyle={{ color: "white", fontSize: 18 }}
           style={{
@@ -38,7 +36,7 @@ function Auth({ navigation }) {
         </Button>
         <Button
           mode="text"
-          onPress={() => console.log("Pressed")}
+          onPress={() => navigation.navigate("Profile")}
           buttonColor="#369ae6"
           labelStyle={{ color: "white", fontSize: 18 }}
           icon="facebook"
@@ -54,7 +52,7 @@ function Auth({ navigation }) {
         </Button>
         <Button
           mode="text"
-          onPress={() => console.log("Pressed")}
+          onPress={() => navigation.navigate("Profile")}
           buttonColor="#00bdd5"
           labelStyle={{ color: "white", fontSize: 18 }}
           icon="cellphone-text"

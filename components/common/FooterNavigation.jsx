@@ -4,9 +4,12 @@ import Profile from "../../pages/Profile";
 import Heart from "../../pages/Heart";
 import Save from "../../pages/Save";
 import Chat from "../../pages/Chat";
+import ChatContent from "../Chat/ChatContent";
 import EditProfile from "../EditProfile";
+import VideoCall from "../Chat/VideoCall";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import ChatPreview from "../Chat/ChatPreview";
 
 const ProfilePage = () => {
   const Stack = createStackNavigator();
@@ -14,13 +17,16 @@ const ProfilePage = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="ProfileStack" component={Profile}></Stack.Screen>
       <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
-      <Stack.Screen name="Matched" component={Save}></Stack.Screen>
+      {/* <Stack.Screen name="Matched" component={Save}></Stack.Screen> */}
+      <Stack.Screen name="ChatContent" component={ChatContent}></Stack.Screen>
+      <Stack.Screen name="VideoCall" component={VideoCall}></Stack.Screen>
     </Stack.Navigator>
   );
 };
 
 const FooterNavigation = () => {
   const Tab = createBottomTabNavigator();
+
   return (
     <Tab.Navigator
       initialRouteName="Profile"

@@ -11,7 +11,7 @@ const MatchedPerson = () => {
       <Image
         style={{ width: width / 2.2, height: width / 2, borderRadius: 16 }}
         resizeMode="cover"
-        source={{ uri: userData.imageUrl.mainPhoto }}
+        source={{ uri: userData[0]?.imageUrl.mainPhoto }}
       />
       <View
         style={{
