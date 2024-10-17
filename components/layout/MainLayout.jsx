@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import Auth from "../common/Auth";
 import { useSelector } from "react-redux";
 import FooterNavigation from "../common/FooterNavigation";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useRoute } from "@react-navigation/native";
 
 function MainLayout() {
   const [loaded, error] = useFonts({

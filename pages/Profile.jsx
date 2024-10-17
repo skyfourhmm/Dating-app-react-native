@@ -7,8 +7,9 @@ import {
   Image,
   FlatList,
 } from "react-native";
-import { Button, Checkbox, Icon, IconButton } from "react-native-paper";
+import { Avatar, Button, Checkbox, Icon, IconButton } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
+import { userData } from "../assets/fakedata/users";
 
 const styles = StyleSheet.create({
   container: {
@@ -114,9 +115,9 @@ function Profile({ navigation }) {
       <View style={styles.header}>
         <View style={{ flexDirection: "row", gap: 30, alignItems: "center" }}>
           <View>
-            <Image
-              source={require("../assets/images/logo.png")}
-              style={{ width: 100, height: 100, borderRadius: 50 }}
+            <Avatar.Image
+              size={100}
+              source={{ uri: userData[0]?.imageUrl.mainPhoto }}
             />
           </View>
           <View>
@@ -130,12 +131,14 @@ function Profile({ navigation }) {
             </View>
             <View style={styles.header_button_edit_profile}>
               <Button
+                mode="contained"
                 onPress={() => navigation.navigate("EditProfile")}
+                buttonColor="#c8f9ff"
                 textColor="#00bdd6"
               >
                 Edit your profile
+                <Icon source="chevron-right" color={"#00bdd6"} size={20} />
               </Button>
-              <Icon source="chevron-right" color={"#00bdd6"} size={20} />
             </View>
           </View>
         </View>
