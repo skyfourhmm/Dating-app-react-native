@@ -11,7 +11,7 @@ const MatchedPerson = () => {
       <Image
         style={{ width: width / 2.2, height: width / 2, borderRadius: 16 }}
         resizeMode="cover"
-        source={{ uri: userData.imageUrl.mainPhoto }}
+        source={{ uri: userData[0].imageUrl.mainPhoto }}
       />
       <View
         style={{
@@ -22,8 +22,10 @@ const MatchedPerson = () => {
           alignItems: "baseline",
         }}
       >
-        <Text style={{ color: "white", fontSize: 18 }}>{userData.name}, </Text>
-        <Text style={{ color: "white", fontSize: 14 }}>{userData.age}</Text>
+        <Text style={{ color: "white", fontSize: 18 }}>
+          {userData[0].name},{" "}
+        </Text>
+        <Text style={{ color: "white", fontSize: 14 }}>{userData[0].age}</Text>
       </View>
     </View>
   );
