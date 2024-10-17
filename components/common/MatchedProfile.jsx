@@ -9,43 +9,45 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import HeaderHeart from "../components/common/HeaderHeart";
-import BannerInfo from "../components/common/BannerInfo";
-import PlaceCart from "../components/common/PlaceCart";
+import HeaderHeart from "../common/HeaderHeart";
+import BannerInfo from "../common/BannerInfo";
+import PlaceCart from "../common/PlaceCart";
 import TagChip from "@/components/common/TagChip";
 import { IconButton } from "react-native-paper";
-import { userData } from "../assets/fakedata/users";
-import SwipeableCards from "../components/common/SwipeableCards";
+import { userData } from "../../assets/fakedata/users";
+import SwipeableCards from "../common/SwipeableCards";
 
 const { width } = Dimensions.get("window");
 
-function Heart() {
+function MatchedProfile({ dataUser, setDataUser }) {
   const [reload, setReload] = useState(true);
 
   const reloadContent = () => {
     setReload((prev) => !prev);
   };
 
+  const user = Object.keys(dataUser).length === 0 ? userData[0] : dataUser;
+
   return (
     <View style={{ flex: 1 }}>
       <HeaderHeart onReload={reloadContent} />
       <SafeAreaView style={{ flex: 1, paddingTop: StatusBar.currentHeight }}>
         <ScrollView>
-          {true ? (
+          {false ? (
             <SwipeableCards idUser={1} reload={reload} />
           ) : (
             <View style={{ marginHorizontal: 16 }}>
-              <BannerInfo userData={userData[0]} />
+              <BannerInfo userData={user} />
               <PlaceCart
                 distance={"2.0 kilometrees, away"}
-                address={userData[0].address}
+                address={user.address}
               />
               {/* describe */}
               <View>
                 <Text style={{ fontSize: 25, fontWeight: 600, marginTop: 20 }}>
                   About me
                 </Text>
-                <Text>{userData[0].describe}</Text>
+                <Text>{user.describe}</Text>
               </View>
               {/* My detail */}
               <View>
@@ -53,7 +55,7 @@ function Heart() {
                   My detail
                 </Text>
                 <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                  {userData[0].tags.map((tag) => (
+                  {user.tags.map((tag) => (
                     <TagChip key={tag.id} icon={tag.icon} label={tag.title} />
                   ))}
                 </View>
@@ -64,7 +66,7 @@ function Heart() {
                   I enjoy
                 </Text>
                 <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                  {userData[0].enjoys.map((enjoy, index) => (
+                  {user.enjoys.map((enjoy, index) => (
                     <TagChip key={index} label={enjoy} />
                   ))}
                 </View>
@@ -75,7 +77,7 @@ function Heart() {
                   I comumunicate in
                 </Text>
                 <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                  {userData[0].comumunicates.map((language, index) => (
+                  {user.comumunicates.map((language, index) => (
                     <TagChip key={index} label={language} />
                   ))}
                 </View>
@@ -85,7 +87,7 @@ function Heart() {
                 <Image
                   style={{ width: "100%", height: width, borderRadius: 16 }}
                   resizeMode="cover"
-                  source={{ uri: userData[0].imageUrl.mainPhoto }}
+                  source={{ uri: user.imageUrl.mainPhoto }}
                 />
                 <View
                   style={{
@@ -101,7 +103,7 @@ function Heart() {
                       borderRadius: 16,
                     }}
                     resizeMode="cover"
-                    source={{ uri: userData[0].imageUrl.mainPhoto }}
+                    source={{ uri: user.imageUrl.mainPhoto }}
                   />
                   <Image
                     style={{
@@ -110,7 +112,7 @@ function Heart() {
                       borderRadius: 16,
                     }}
                     resizeMode="cover"
-                    source={{ uri: userData[0].imageUrl.mainPhoto }}
+                    source={{ uri: user.imageUrl.mainPhoto }}
                   />
                 </View>
               </View>
@@ -128,7 +130,7 @@ function Heart() {
                   containerColor={"#fcf1f0"}
                   iconColor="#f44336"
                   size={50}
-                  onPress={() => {}}
+                  onPress={() => setDataUser({})}
                 />
                 <IconButton
                   icon="check"
@@ -157,4 +159,4 @@ function Heart() {
   );
 }
 
-export default Heart;
+export default MatchedProfile;

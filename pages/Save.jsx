@@ -1,9 +1,10 @@
-import BannerInfo from "@/components/common/BannerInfo";
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import MatchedPerson from "../components/MatchedPerson";
-import HeaderHeart from "@/components/common/HeaderHeart";
+import { useSelector } from "react-redux";
+import { userData } from "@/assets/fakedata/users";
+import MatchedProfile from "../components/common/MatchedProfile";
 
 const styles = StyleSheet.create({
   container: {
@@ -21,31 +22,45 @@ const styles = StyleSheet.create({
 });
 
 function Save() {
+  const userid = useSelector((state) => state.user.userid);
+  const user = userData.find((user) => user.id === userid);
+  const userListMatched = user.listMatched;
+
+  const [dataUser, setDataUser] = useState({});
+
+  const handleMatched = (data) => {
+    setDataUser(data);
+  };
+
   return (
     <ScrollView style={styles.container}>
-      <View></View>
+      {Object.keys(dataUser).length !== 0 ? (
+        <MatchedProfile dataUser={dataUser} setDataUser={setDataUser} />
+      ) : (
+        <View style={{ marginTop: 10, flex: 1 }}>
+          <View>
+            <Text variant="displaySmall" style={{ fontWeight: "bold" }}>
+              Matched
+            </Text>
+          </View>
 
-      <View style={{ marginTop: 10, flex: 1 }}>
-        <View>
-          <Text variant="displaySmall" style={{ fontWeight: "bold" }}>
-            Matched
-          </Text>
-        </View>
+          <View>
+            <Text variant="bodyMedium" style={{}}>
+              There are those whom you matched with or who were matched.
+            </Text>
+          </View>
 
-        <View>
-          <Text variant="bodyMedium" style={{}}>
-            There are those whom you matched with or who were matched.
-          </Text>
+          <View style={styles.listPerson}>
+            {userListMatched.map((id, index) => (
+              <MatchedPerson
+                userId={id}
+                handleMatched={handleMatched}
+                key={index}
+              />
+            ))}
+          </View>
         </View>
-
-        <View style={styles.listPerson}>
-          <MatchedPerson />
-          <MatchedPerson />
-          <MatchedPerson />
-          <MatchedPerson />
-          <MatchedPerson />
-        </View>
-      </View>
+      )}
     </ScrollView>
   );
 }

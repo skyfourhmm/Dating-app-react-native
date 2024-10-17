@@ -3,10 +3,11 @@ import { IconButton, FAB, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import React, { useState } from "react";
 import * as Progress from "react-native-progress";
+import { useNavigation } from "@react-navigation/native";
 
 import ModalFilter from "./ModalFilter";
 
-function HeaderHeart() {
+function HeaderHeart({ onReload }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -31,7 +32,7 @@ function HeaderHeart() {
             <IconButton icon="menu" size={24} onPress={() => {}} />
           </View>
           <View style={{ width: 30, paddingLeft: 10 }}>
-            <IconButton icon="reload" size={24} onPress={() => {}} />
+            <IconButton icon="reload" size={24} onPress={onReload} />
           </View>
         </View>
         <View>

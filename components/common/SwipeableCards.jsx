@@ -16,20 +16,37 @@ import { PanGestureHandler } from "react-native-gesture-handler";
 import Like from "../../assets/images/LIKE.png";
 import Nope from "../../assets/images/nope.png";
 
+import { useSelector } from "react-redux";
+
 const ROTATION = 60;
 const SWIPE_VELOCITY = 800;
 
-function SwipeableCards() {
+function SwipeableCards({ reload }) {
+  const userid = useSelector((state) => state.user.userid);
+
+  const userdb = userData.filter((user) => user.id !== userid);
+  // current user logined
+
+  useEffect(() => {
+    console.log("reload: ", reload);
+  }, [reload]);
+
+  // reload data
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentNextIndex, setCurrentNextIndex] = useState(currentIndex + 1);
 
-  const currentProfile = userData[currentIndex];
-  const nextProfile = userData[currentNextIndex];
+  const currentProfile = userdb[currentIndex];
+  const nextProfile = userdb[currentNextIndex];
 
   const onSwipeLeft = (user) => {
     console.log("swipe left", user.id);
   };
   const onSwipeRight = (user) => {
+    const data = userData.find((user) => user.id === userid);
+    data.listMatched.push(user.id);
+    console.log("user", data.listMatched);
+
     console.log("swipe right", user.id);
   };
 
@@ -85,7 +102,7 @@ function SwipeableCards() {
         return;
       }
 
-      if (userData.length - 1 === currentIndex) {
+      if (userdb.length - 1 === currentIndex) {
         translateX.value = withSpring(0);
         return;
       }
