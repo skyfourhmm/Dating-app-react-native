@@ -27,7 +27,7 @@ const ChatContentHeader = () => {
         }}
       >
         <Appbar.Header>
-          <Appbar.BackAction onPress={() => navigation.navigate("Chat")} />
+          <Appbar.BackAction onPress={() => navigation.navigate("ChatStack")} />
           <Appbar.Content title="" />
           <Appbar.Action
             icon="video-outline"

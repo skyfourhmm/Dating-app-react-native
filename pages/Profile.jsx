@@ -6,10 +6,12 @@ import {
   SafeAreaView,
   Image,
   FlatList,
+  Touchable,
 } from "react-native";
 import { Avatar, Button, Checkbox, Icon, IconButton } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { userData } from "../assets/fakedata/users";
+import * as Progress from "react-native-progress";
 
 const styles = StyleSheet.create({
   container: {
@@ -23,11 +25,7 @@ const styles = StyleSheet.create({
   },
   header: {},
   header_button_edit_profile: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#c8f9ff",
-    borderRadius: 50,
-    marginTop: 10,
+    marginTop: 5,
   },
   header_verify: {
     flexDirection: "row",
@@ -114,11 +112,39 @@ function Profile({ navigation }) {
 
       <View style={styles.header}>
         <View style={{ flexDirection: "row", gap: 30, alignItems: "center" }}>
-          <View>
+          <View
+            style={{
+              position: "relative",
+              alignItems: "center",
+            }}
+          >
             <Avatar.Image
               size={100}
               source={{ uri: userData[0]?.imageUrl.mainPhoto }}
             />
+            <Progress.Circle
+              size={100}
+              indeterminate={false}
+              width={45}
+              progress={45}
+              color={"#00bdd6"}
+              borderWidth={2}
+              style={{ position: "absolute", top: 0, left: 0 }}
+            />
+            <Text
+              style={{
+                color: "white",
+                fontSize: 13,
+                backgroundColor: "#00bdd6",
+                padding: 5,
+                borderRadius: 50,
+                textAlign: "center",
+                position: "absolute",
+                bottom: 0,
+              }}
+            >
+              45% complete
+            </Text>
           </View>
           <View>
             <View
@@ -134,10 +160,13 @@ function Profile({ navigation }) {
                 mode="contained"
                 onPress={() => navigation.navigate("EditProfile")}
                 buttonColor="#c8f9ff"
-                textColor="#00bdd6"
               >
-                Edit your profile
-                <Icon source="chevron-right" color={"#00bdd6"} size={20} />
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ color: "#00bdd6", fontWeight: "500" }}>
+                    Edit your profile
+                  </Text>
+                  <Icon source="chevron-right" color={"#00bdd6"} size={20} />
+                </View>
               </Button>
             </View>
           </View>

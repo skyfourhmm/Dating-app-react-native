@@ -1,22 +1,14 @@
 import { useState } from "react";
 import { View, Image, StyleSheet, ScrollView, TextInput } from "react-native";
-import {
-  ProgressBar,
-  Avatar,
-  Text,
-  Icon,
-  Button,
-  IconButton,
-} from "react-native-paper";
+import { ProgressBar, Text, Icon, IconButton } from "react-native-paper";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { MaterialIcons as MIcon } from "@expo/vector-icons";
 
 const style = StyleSheet.create({
-  container: { padding: 10, gap: 50, backgroundColor: "white" },
+  container: { paddingHorizontal: 10, gap: 50, backgroundColor: "white" },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: -10,
     marginBottom: 10,
     borderBottomWidth: 1,
     borderColor: "gray",

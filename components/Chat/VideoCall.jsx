@@ -3,11 +3,19 @@ import { ImageBackground, Platform, StyleSheet, View } from "react-native";
 import { Appbar, Avatar, IconButton, Text } from "react-native-paper";
 import { userData } from "../../assets/fakedata/users";
 import Colors from "@/constants/Colors";
+import { useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 
-const VideoCall = () => {
-  const navigation = useNavigation();
+const VideoCall = ({ navigation }) => {
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     navigation.getParent().setOptions({ tabBarStyle: { display: "none" } });
+  //     return () =>
+  //       navigation.getParent().setOptions({ tabBarStyle: { display: "flex" } });
+  //   }, [navigation])
+  // );
 
   return (
     <View style={{ flex: 1 }}>
@@ -21,7 +29,7 @@ const VideoCall = () => {
             size={30}
             icon={"chevron-down"}
             color="white"
-            onPress={() => navigation.navigate("Chat")}
+            onPress={() => navigation.navigate("ChatContent")}
           />
           <Appbar.Content title="" />
           <Appbar.Action
