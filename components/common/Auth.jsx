@@ -1,7 +1,54 @@
-import { View, Image } from "react-native";
-import { Text, Card, Button, IconButton } from "react-native-paper";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  Modal,
+  TouchableWithoutFeedback,
+  Keyboard,
+  TextInput,
+} from "react-native";
+import { Text } from "react-native-paper";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import React, { useState } from "react";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import Feather from "@expo/vector-icons/Feather";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
-function Auth({ navigation }) {
+import customAxios from "../../utils/customAxios";
+import { API_ROOT } from "../../utils/constants";
+
+import { useSelector, useDispatch } from "react-redux";
+import { setAuthOpen } from "../../redux/features/AuthSlice";
+import { setCurrentUser } from "../../redux/features/UserSlice";
+
+function Auth() {
+  const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("0935019843");
+  const [password, setPassword] = useState("thientu");
+  const [ishidePassword, setHidePassword] = useState(true);
+
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleLogin = async () => {
+    try {
+      const response = await customAxios.post(`${API_ROOT}/auth/login`, {
+        phoneNumber,
+        password,
+      });
+      if (response.status === 200) {
+        dispatch(setCurrentUser(response.data.profile));
+        dispatch(setAuthOpen(false));
+      } else {
+        console.log("Lỗi đăng nhập:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi API:", error.message);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -18,55 +65,209 @@ function Auth({ navigation }) {
         </Text>
       </View>
       <View style={{ marginHorizontal: 10 }}>
-        <Button
-          mode="text"
-          onPress={() => navigation.navigate("Profile")}
-          buttonColor="#000"
-          labelStyle={{ color: "white", fontSize: 18 }}
+        <TouchableOpacity
           style={{
             marginBottom: 20,
             height: 60,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 100,
+            backgroundColor: "#000",
+            flexDirection: "row",
           }}
-          icon="apple"
+          onPress={() => console.log("Apple")}
         >
-          Continue with Apple
-        </Button>
-        <Button
-          mode="text"
-          onPress={() => navigation.navigate("Profile")}
-          buttonColor="#369ae6"
-          labelStyle={{ color: "white", fontSize: 18 }}
-          icon="facebook"
+          <Ionicons name="logo-apple" size={24} color="white" />
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 18,
+              fontWeight: 700,
+              marginLeft: 16,
+            }}
+          >
+            Continue with Apple
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={{
             marginBottom: 20,
             height: 60,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 100,
+            backgroundColor: "#369ae6",
+            flexDirection: "row",
           }}
+          onPress={() => console.log("Facebook")}
         >
-          Continue with Facebook
-        </Button>
-        <Button
-          mode="text"
-          onPress={() => navigation.navigate("Profile")}
-          buttonColor="#00bdd5"
-          labelStyle={{ color: "white", fontSize: 18 }}
-          icon="cellphone-text"
+          <FontAwesome5 name="facebook" size={24} color="white" />
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 18,
+              fontWeight: 700,
+              marginLeft: 16,
+            }}
+          >
+            Continue with Facebook
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={{
             marginBottom: 20,
             height: 60,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 100,
+            backgroundColor: "#00bdd5",
+            flexDirection: "row",
           }}
+          onPress={() => setIsLoginModalVisible(true)}
         >
-          Continue with Phone Number
-        </Button>
+          <FontAwesome name="phone" size={24} color="white" />
+          <Text
+            style={{
+              color: "#fff",
+              fontSize: 18,
+              fontWeight: 700,
+              marginLeft: 16,
+            }}
+          >
+            Continue with Phone Number
+          </Text>
+        </TouchableOpacity>
       </View>
+
+      {/* Model */}
+      <Modal
+        animationType="slide" // Kiểu animation
+        transparent={true} // Để nền có thể mờ đi
+        visible={isLoginModalVisible} // Hiển thị hoặc ẩn modal
+        onRequestClose={() => setIsLoginModalVisible(false)} // Đóng modal khi bấm nút back
+      >
+        <View
+          style={{ flex: 1, backgroundColor: "#ffeaed", paddingHorizontal: 20 }}
+        >
+          <TouchableOpacity
+            onPress={() => setIsLoginModalVisible(false)}
+            style={{
+              paddingTop: 20,
+              borderRadius: 10,
+            }}
+          >
+            <AntDesign name="arrowleft" size={26} color="black" />
+          </TouchableOpacity>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 26, fontWeight: 700, marginBottom: 20 }}>
+                Log in to start
+              </Text>
+              <View
+                style={{
+                  backgroundColor: "#fff",
+                  flexDirection: "row",
+                  marginHorizontal: 20,
+                  borderRadius: 1000,
+                  paddingHorizontal: 20,
+                  height: 60,
+                  alignItems: "center",
+                  marginBottom: 20,
+                }}
+              >
+                <Feather name="user" size={24} color="black" />
+                <TextInput
+                  style={{
+                    flex: 1,
+                    marginLeft: 10,
+                    paddingVertical: 0,
+                    height: 40,
+                    backgroundColor: "#fff",
+                  }}
+                  placeholder="Phone Number"
+                  value={phoneNumber}
+                  onChangeText={setPhoneNumber}
+                  keyboardType="phone-pad"
+                />
+              </View>
+              <View
+                style={{
+                  backgroundColor: "#fff",
+                  flexDirection: "row",
+                  marginHorizontal: 20,
+                  borderRadius: 1000,
+                  paddingHorizontal: 20,
+                  height: 60,
+                  alignItems: "center",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => setHidePassword((prev) => !prev)}
+                >
+                  {ishidePassword ? (
+                    <Feather name="lock" size={24} color="black" />
+                  ) : (
+                    <Feather name="unlock" size={24} color="black" />
+                  )}
+                </TouchableOpacity>
+                <TextInput
+                  style={{
+                    flex: 1,
+                    marginLeft: 10,
+                    paddingVertical: 0,
+                    height: 40,
+                    backgroundColor: "#fff",
+                  }}
+                  placeholder="Password"
+                  secureTextEntry={ishidePassword} // Ẩn mật khẩu
+                  value={password} // Giá trị ô nhập mật khẩu
+                  onChangeText={setPassword} // Cập nhật trạng thái khi thay đổi
+                />
+              </View>
+
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#FE506B",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 60,
+                  borderRadius: 100,
+                  marginTop: 20,
+                  flexDirection: "row",
+                }}
+                onPress={handleLogin}
+              >
+                <MaterialIcons name="login" size={24} color="white" />
+                <Text style={{ color: "#fff", fontSize: 18, marginLeft: 20 }}>
+                  Login
+                </Text>
+              </TouchableOpacity>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Text>Don't have an account? </Text>
+                <TouchableOpacity onPress={() => console.log(3242)}>
+                  <Text style={{ color: "#FE506B" }}>Sign up</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      </Modal>
     </View>
   );
 }

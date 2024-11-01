@@ -33,7 +33,7 @@ function MainLayout() {
 
   return (
     <React.Fragment>
-      {false ? (
+      {auth ? (
         <Auth />
       ) : (
         <NavigationContainer independent={true}>

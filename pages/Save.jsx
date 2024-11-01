@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import MatchedPerson from "../components/MatchedPerson";
 import { useSelector } from "react-redux";
 import { userData } from "@/assets/fakedata/users";
 import MatchedProfile from "../components/common/MatchedProfile";
+import customAxios from "../utils/customAxios";
+import { API_ROOT } from "../utils/constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,9 +24,27 @@ const styles = StyleSheet.create({
 });
 
 function Save() {
-  const userid = useSelector((state) => state.user.userid);
-  const user = userData.find((user) => user.id === userid);
-  const userListMatched = user.listMatched;
+  const currentUser = useSelector((state) => state.user);
+  const [userListMatched, setUserListMatched] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await customAxios.get(
+          `${API_ROOT}/user/profile/${currentUser.profile.userId}`
+        );
+        if (response.status === 200) {
+          setUserListMatched(response.data.listMatched);
+        } else {
+          console.log("Lỗi:", response.data.message);
+        }
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error.message);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const [dataUser, setDataUser] = useState({});
 

@@ -15,6 +15,8 @@ import Animated, {
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Like from "../../assets/images/LIKE.png";
 import Nope from "../../assets/images/nope.png";
+import { API_ROOT } from "../../utils/constants";
+import customAxios from "../../utils/customAxios";
 
 import { useSelector } from "react-redux";
 
@@ -22,10 +24,61 @@ const ROTATION = 60;
 const SWIPE_VELOCITY = 800;
 
 function SwipeableCards({ reload }) {
-  const userid = useSelector((state) => state.user.userid);
+  const currentUser = useSelector((state) => state.user);
+  const userid = currentUser.profile._id;
+  const [userData, setUserData] = useState([]);
 
-  const userdb = userData.filter((user) => user.id !== userid);
-  // current user logined
+  // call data user
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await customAxios.get(`${API_ROOT}/user/allUser`);
+        if (response.status === 200) {
+          setUserData(response.data.profile);
+        } else {
+          console.log("Lỗi:", response.data.message);
+        }
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error.message);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const userdb = userData.filter((user) => user._id !== userid);
+
+  // update data when matched
+  const handleUpdateMatched = async (updateData, userId) => {
+    try {
+      const response = await customAxios.put(
+        `${API_ROOT}/user/updateMatched/${userId}`,
+        updateData
+      );
+      console.log(
+        "Profile updated successfully!",
+        `Name: ${response.data.name}`
+      );
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
+
+  // lấy dữ liệu của user hiện tại
+  const getCurrentUser = async () => {
+    try {
+      const response = await customAxios.get(
+        `${API_ROOT}/user/profile/${currentUser.profile.userId}`
+      );
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.log("Lỗi:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi API:", error.message);
+    }
+  };
 
   useEffect(() => {
     console.log("reload: ", reload);
@@ -39,15 +92,17 @@ function SwipeableCards({ reload }) {
   const currentProfile = userdb[currentIndex];
   const nextProfile = userdb[currentNextIndex];
 
-  const onSwipeLeft = (user) => {
-    console.log("swipe left", user.id);
+  const onSwipeLeft = async (user) => {
+    console.log("swipe left", user._id);
   };
-  const onSwipeRight = (user) => {
-    const data = userData.find((user) => user.id === userid);
-    data.listMatched.push(user.id);
-    console.log("user", data.listMatched);
+  const onSwipeRight = async (user) => {
+    const newGetProfile = await getCurrentUser();
+    const newProject = {
+      ...newGetProfile,
+      listMatched: [...newGetProfile.listMatched, user.userId],
+    };
 
-    console.log("swipe right", user.id);
+    handleUpdateMatched(newProject, newGetProfile.userId);
   };
 
   const { width: screenWidth } = useWindowDimensions();

@@ -28,6 +28,10 @@ function MatchedProfile({ dataUser, setDataUser }) {
 
   const user = Object.keys(dataUser).length === 0 ? userData[0] : dataUser;
 
+  user.enjoys.map((tag) => {
+    console.log(tag);
+  });
+
   return (
     <View style={{ flex: 1 }}>
       <HeaderHeart onReload={reloadContent} />
@@ -55,7 +59,7 @@ function MatchedProfile({ dataUser, setDataUser }) {
                   My detail
                 </Text>
                 <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                  {user.tags.map((tag) => (
+                  {user.tags?.map((tag) => (
                     <TagChip key={tag.id} icon={tag.icon} label={tag.title} />
                   ))}
                 </View>
@@ -66,7 +70,7 @@ function MatchedProfile({ dataUser, setDataUser }) {
                   I enjoy
                 </Text>
                 <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                  {user.enjoys.map((enjoy, index) => (
+                  {user.enjoys?.map((enjoy, index) => (
                     <TagChip key={index} label={enjoy} />
                   ))}
                 </View>
@@ -77,7 +81,7 @@ function MatchedProfile({ dataUser, setDataUser }) {
                   I comumunicate in
                 </Text>
                 <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                  {user.comumunicates.map((language, index) => (
+                  {user.comumunicates?.map((language, index) => (
                     <TagChip key={index} label={language} />
                   ))}
                 </View>
