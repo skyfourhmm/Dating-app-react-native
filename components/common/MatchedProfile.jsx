@@ -57,7 +57,7 @@ function MatchedProfile({ dataUser, setDataUser }) {
     }
   };
 
-  handleUnMatched = async (user) => {
+  const handleUnMatched = async (user) => {
     const newGetProfile = await getCurrentUser();
     const newList = newGetProfile.listMatched.filter(
       (userId) => userId !== user.userId
@@ -133,7 +133,7 @@ function MatchedProfile({ dataUser, setDataUser }) {
               <Image
                 style={{ width: "100%", height: width, borderRadius: 16 }}
                 resizeMode="cover"
-                source={{ uri: user.imageUrl.mainPhoto }}
+                source={{ uri: user.otherPhotos[0] }}
               />
               <View
                 style={{
@@ -149,7 +149,7 @@ function MatchedProfile({ dataUser, setDataUser }) {
                     borderRadius: 16,
                   }}
                   resizeMode="cover"
-                  source={{ uri: user.imageUrl.mainPhoto }}
+                  source={{ uri: user.imageUrl.otherPhotos[1] }}
                 />
                 <Image
                   style={{
@@ -158,7 +158,7 @@ function MatchedProfile({ dataUser, setDataUser }) {
                     borderRadius: 16,
                   }}
                   resizeMode="cover"
-                  source={{ uri: user.imageUrl.mainPhoto }}
+                  source={{ uri: user.imageUrl.otherPhotos[2] }}
                 />
               </View>
             </View>

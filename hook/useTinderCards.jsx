@@ -20,12 +20,30 @@ export default function useTinderCards() {
 
   // call data user
   useEffect(() => {
+    const getCurrentUser = async () => {
+      try {
+        const response = await customAxios.get(
+          `${API_ROOT}/user/profile/${currentUser.profile.userId}`
+        );
+        if (response.status === 200) {
+          return response.data;
+        } else {
+          console.log("Lỗi:", response.data.message);
+        }
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error.message);
+      }
+    };
+
     const fetchUsers = async () => {
       try {
         const response = await customAxios.get(`${API_ROOT}/user/allUser`);
         if (response.status === 200) {
+          const newGetProfile = await getCurrentUser();
           const userdb = response.data.profile.filter(
-            (user) => user._id !== currentUser.profile._id
+            (user) =>
+              user._id !== currentUser.profile._id &&
+              !newGetProfile.listMatched.includes(user.userId)
           );
           setData(userdb);
         } else {
@@ -69,11 +87,16 @@ export default function useTinderCards() {
     const fetchProfileAndMatch = async () => {
       if (swipe === "right") {
         const newGetProfile = await getCurrentUser();
+
         let newProject = {
           ...newGetProfile,
           listMatched: [...newGetProfile.listMatched],
         };
-        if (currentData.userId) {
+
+        if (
+          currentData.userId &&
+          !newGetProfile.listMatched.includes(currentData.userId)
+        ) {
           newProject = {
             ...newGetProfile,
             listMatched: [...newGetProfile.listMatched, currentData.userId],
@@ -81,6 +104,11 @@ export default function useTinderCards() {
         }
         if (newGetProfile) {
           await handleUpdateMatched(newProject, newGetProfile.userId);
+        }
+      }
+      if (swipe === "left") {
+        if (data.length === 0) {
+          setSwipe("");
         }
       }
     };
