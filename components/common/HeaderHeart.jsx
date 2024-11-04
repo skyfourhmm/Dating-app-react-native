@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import ModalFilter from "./ModalFilter";
 
-function HeaderHeart({ onReload }) {
+function HeaderHeart({ onReload, user, setDataUser }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -27,14 +27,30 @@ function HeaderHeart({ onReload }) {
           paddingHorizontal: 8,
         }}
       >
-        <View style={{ flexDirection: "row", width: 60 }}>
-          <View style={{ width: 30 }}>
-            <IconButton icon="menu" size={24} onPress={() => {}} />
+        {user ? (
+          <View style={{ flexDirection: "row", width: 60 }}>
+            <View style={{ width: 30 }}>
+              <IconButton
+                icon="arrow-left"
+                size={24}
+                onPress={() => {
+                  setDataUser({});
+                }}
+              />
+            </View>
           </View>
-          <View style={{ width: 30, paddingLeft: 10 }}>
-            <IconButton icon="reload" size={24} onPress={onReload} />
+        ) : (
+          <View style={{ flexDirection: "row", width: 60 }}>
+            <View style={{ width: 30 }}>
+              <IconButton icon="menu" size={24} onPress={() => {}} />
+            </View>
+
+            <View style={{ width: 30, paddingLeft: 10 }}>
+              <IconButton icon="reload" size={24} onPress={onReload} />
+            </View>
           </View>
-        </View>
+        )}
+
         <View>
           <Text style={{ fontSize: 20, fontWeight: 600 }}>HeartSync</Text>
         </View>

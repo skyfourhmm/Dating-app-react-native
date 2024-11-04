@@ -1,17 +1,19 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, Dimensions } from "react-native";
 import { Chip, IconButton } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import TagChip from "./TagChip";
+
+const { height } = Dimensions.get("screen");
 
 function BannerInfo({ userData }) {
   return (
     <View style={{ flex: 1, position: "relative" }}>
       <Image
-        style={{ width: "100%", height: 640, borderRadius: 16 }}
+        style={{ width: "100%", height: height * 0.7, borderRadius: 16 }}
         resizeMode="cover"
         source={{ uri: userData?.imageUrl.mainPhoto }}
       />
-      <View style={{ position: "absolute", bottom: 20, left: 20 }}>
+      <View style={{ position: "absolute", bottom: -200, left: 20 }}>
         <View style={{ flexDirection: "row" }}>
           <Text
             style={{

@@ -3,7 +3,6 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import MatchedPerson from "../components/MatchedPerson";
 import { useSelector } from "react-redux";
-import { userData } from "@/assets/fakedata/users";
 import MatchedProfile from "../components/common/MatchedProfile";
 import customAxios from "../utils/customAxios";
 import { API_ROOT } from "../utils/constants";
@@ -44,7 +43,7 @@ function Save() {
     };
 
     fetchUsers();
-  }, []);
+  }, [userListMatched]);
 
   const [dataUser, setDataUser] = useState({});
 
