@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { View, Image, StyleSheet, ScrollView, TextInput } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { ProgressBar, Text, Icon, IconButton } from "react-native-paper";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { MaterialIcons as MIcon } from "@expo/vector-icons";
@@ -255,12 +262,12 @@ const EditProfile = ({ navigation }) => {
             </View>
 
             <View style={{ gap: 10 }}>
-              <View
+              <TouchableOpacity
                 style={{ flexDirection: "row", justifyContent: "flex-end" }}
               >
                 <Text style={{ color: "gray" }}>Add</Text>
                 <Icon source="chevron-right" color="gray" size={20} />
-              </View>
+              </TouchableOpacity>
               <View
                 style={{ flexDirection: "row", justifyContent: "flex-end" }}
               >

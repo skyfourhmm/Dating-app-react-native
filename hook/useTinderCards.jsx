@@ -107,9 +107,7 @@ export default function useTinderCards() {
         }
       }
       if (swipe === "left") {
-        if (data.length === 0) {
-          setSwipe("");
-        }
+        console.log("Swipe left");
       }
     };
 

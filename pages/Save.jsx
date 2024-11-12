@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View, TextInput } from "react-native";
 import { Text } from "react-native-paper";
 import MatchedPerson from "../components/MatchedPerson";
 import { useSelector } from "react-redux";
 import MatchedProfile from "../components/common/MatchedProfile";
 import customAxios from "../utils/customAxios";
 import { API_ROOT } from "../utils/constants";
+
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 const styles = StyleSheet.create({
   container: {
@@ -57,10 +59,26 @@ function Save() {
         <MatchedProfile dataUser={dataUser} setDataUser={setDataUser} />
       ) : (
         <View style={{ marginTop: 10, flex: 1 }}>
-          <View>
-            <Text variant="displaySmall" style={{ fontWeight: "bold" }}>
-              Matched
-            </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginBottom: 10,
+            }}
+          >
+            <View style={{ paddingRight: 15 }}>
+              <AntDesign name="arrowleft" size={24} color="black" />
+            </View>
+            <TextInput
+              placeholder="Find someone you've matched with..."
+              style={{
+                width: "90%",
+                backgroundColor: "#f3f4f6",
+                borderRadius: 20,
+                paddingHorizontal: 20,
+                paddingVertical: 5,
+              }}
+            />
           </View>
 
           <View>

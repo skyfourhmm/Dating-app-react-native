@@ -149,7 +149,7 @@ function Auth() {
         onRequestClose={() => setIsLoginModalVisible(false)} // Đóng modal khi bấm nút back
       >
         <View
-          style={{ flex: 1, backgroundColor: "#ffeaed", paddingHorizontal: 20 }}
+          style={{ flex: 1, backgroundColor: "#c8f9ff", paddingHorizontal: 20 }}
         >
           <TouchableOpacity
             onPress={() => setIsLoginModalVisible(false)}
@@ -235,7 +235,7 @@ function Auth() {
 
               <TouchableOpacity
                 style={{
-                  backgroundColor: "#FE506B",
+                  backgroundColor: "#00bdd6",
                   width: "100%",
                   justifyContent: "center",
                   alignItems: "center",
@@ -261,7 +261,9 @@ function Auth() {
               >
                 <Text>Don't have an account? </Text>
                 <TouchableOpacity onPress={() => console.log(3242)}>
-                  <Text style={{ color: "#FE506B" }}>Sign up</Text>
+                  <Text style={{ color: "#00bdd6", fontWeight: "bold" }}>
+                    Sign up
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>

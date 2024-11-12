@@ -73,6 +73,8 @@ function MatchedProfile({ dataUser, setDataUser }) {
     setDataUser({});
   };
 
+  console.log("user", user);
+
   return (
     <View style={{ flex: 1 }}>
       <HeaderHeart
