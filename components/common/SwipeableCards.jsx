@@ -21,7 +21,7 @@ import customAxios from "../../utils/customAxios";
 import { useSelector } from "react-redux";
 
 const ROTATION = 60;
-const SWIPE_VELOCITY = 800;
+const SWIPE_VELOCITY = 1000;
 
 function SwipeableCards({ reload }) {
   const currentUser = useSelector((state) => state.user);

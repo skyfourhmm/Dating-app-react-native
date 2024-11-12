@@ -5,7 +5,7 @@ import Heart from "../../pages/Heart";
 import Save from "../../pages/Save";
 import Chat from "../../pages/Chat";
 import ChatContent from "../Chat/ChatContent";
-import EditProfile from "../EditProfile";
+import EditProfile from "./EditProfile";
 import VideoCall from "../Chat/VideoCall";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
