@@ -1,21 +1,16 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  FlatList,
-  Touchable,
-} from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import { Avatar, Button, Checkbox, Icon, IconButton } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { userData } from "../assets/fakedata/users";
 import * as Progress from "react-native-progress";
+import { useState, useCallback } from "react";
+import SettingModal from "../components/common/SettingModal";
+import { useFocusEffect } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     flex: 1,
     backgroundColor: "#ffffff",
   },
@@ -99,16 +94,29 @@ const features = [
 const Stack = createStackNavigator();
 
 function Profile({ navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.menu}>
         <View>
-          <IconButton icon="menu" size={24} onPress={() => {}} />
+          <IconButton
+            icon={modalVisible ? "close" : "menu"}
+            size={24}
+            onPress={() => setModalVisible(!modalVisible)}
+          />
         </View>
         <View>
           <IconButton icon="cog-outline" size={24} onPress={() => {}} />
         </View>
       </View>
+
+      {modalVisible && (
+        <SettingModal
+          status={modalVisible}
+          onClose={() => setModalVisible(false)}
+        />
+      )}
 
       <View style={styles.header}>
         <View style={{ flexDirection: "row", gap: 30, alignItems: "center" }}>
@@ -201,14 +209,14 @@ function Profile({ navigation }) {
       </View>
 
       <View style={styles.body}>
-        <View style={styles.body_header}>
+        {/* <View style={styles.body_header}>
           <View style={styles.body_header_active}>
             <Text style={styles.body_header_text}>Plans</Text>
           </View>
           <View>
             <Text style={styles.body_header_text}>Safety</Text>
           </View>
-        </View>
+        </View> */}
 
         <View style={styles.body_bander}>
           <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>

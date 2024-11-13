@@ -4,11 +4,13 @@ import Colors from "../../constants/Colors";
 import React, { useState } from "react";
 import * as Progress from "react-native-progress";
 import { useNavigation } from "@react-navigation/native";
+import SettingModal from "./SettingModal";
 
 import ModalFilter from "./ModalFilter";
 
 function HeaderHeart({ onReload }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [settingModalVisible, setSettingModalVisible] = useState(false);
 
   return (
     <React.Fragment>
@@ -29,7 +31,17 @@ function HeaderHeart({ onReload }) {
       >
         <View style={{ flexDirection: "row", width: 60 }}>
           <View style={{ width: 30 }}>
-            <IconButton icon="menu" size={24} onPress={() => {}} />
+            <IconButton
+              icon={settingModalVisible ? "close" : "menu"}
+              size={24}
+              onPress={() => setSettingModalVisible(!settingModalVisible)}
+            />
+            {settingModalVisible && (
+              <SettingModal
+                status={modalVisible}
+                onClose={() => setSettingModalVisible(false)}
+              />
+            )}
           </View>
           <View style={{ width: 30, paddingLeft: 10 }}>
             <IconButton icon="reload" size={24} onPress={onReload} />

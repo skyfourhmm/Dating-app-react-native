@@ -10,7 +10,7 @@ function Chat() {
     <View style={styles.container}>
       <HeaderChat />
 
-      <View style={{ marginTop: 15 }}>
+      <View style={{ marginTop: 10 }}>
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>
           Matches <Text>(7)</Text>
         </Text>

@@ -1,11 +1,24 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { Icon } from "react-native-paper";
+import { Icon, IconButton } from "react-native-paper";
+import { useState } from "react";
+import SettingModal from "../common/SettingModal";
 
 const HeaderChat = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <Icon source="menu" size={30} />
+      <View style={{ flex: 1, marginLeft: -10 }}>
+        <IconButton
+          icon={modalVisible ? "close" : "menu"}
+          size={24}
+          onPress={() => setModalVisible(!modalVisible)}
+        />
+        {modalVisible && (
+          <SettingModal
+            status={modalVisible}
+            onClose={() => setModalVisible(false)}
+          />
+        )}
       </View>
 
       <View style={styles.inputSearch}>
@@ -22,12 +35,13 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     flexDirection: "row",
-    gap: 10,
+    gap: 20,
     backgroundColor: "white",
     alignItems: "center",
-    paddingVertical: 25,
+    paddingVertical: 5,
     borderBottomWidth: 1,
     borderColor: "#e7e9ed",
+    zIndex: 1,
   },
   inputSearch: {
     position: "relative",

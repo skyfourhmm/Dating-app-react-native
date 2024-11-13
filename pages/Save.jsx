@@ -54,12 +54,14 @@ function Save() {
 
   return (
     <ScrollView style={styles.container}>
-      <HeaderHeart />
       {Object.keys(dataUser).length !== 0 ? (
         <MatchedProfile dataUser={dataUser} setDataUser={setDataUser} />
       ) : (
         <View style={{ flex: 1, paddingHorizontal: 10 }}>
-          <View>
+          <View style={{ marginHorizontal: -10 }}>
+            <HeaderHeart />
+          </View>
+          <View style={{ marginTop: 10 }}>
             <Text variant="displaySmall" style={{ fontWeight: "bold" }}>
               Matched
             </Text>
