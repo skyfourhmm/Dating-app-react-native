@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Modal,
+  TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-paper";
 import { useState, useEffect, useCallback } from "react";
@@ -36,8 +37,16 @@ const SettingModal = ({ status, onClose }) => {
       <View style={styles.modalOverlay}>
         <TouchableWithoutFeedback>
           <View style={styles.modalContainer}>
-            <Text>Hello, I am a modal!</Text>
-            <Button onPress={onClose}>Hide Modal</Button>
+            <Text>Thông tin tài khoản</Text>
+            <Text>Giao diện tối</Text>
+            <Text>Cài đặt thông báo</Text>
+            <Text>Quy tắc cộng đồng</Text>
+            <Text>Quyền riêng tư</Text>
+            <Text>Thông tin phiên bản</Text>
+            <Text>Xóa tài khoản</Text>
+            <TouchableOpacity onPress={onClose}>
+              <Text>Đăng xuất</Text>
+            </TouchableOpacity>
           </View>
         </TouchableWithoutFeedback>
       </View>
