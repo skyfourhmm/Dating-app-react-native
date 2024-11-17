@@ -6,11 +6,13 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import { ProgressBar, Text, Icon, IconButton } from "react-native-paper";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { MaterialIcons as MIcon } from "@expo/vector-icons";
 import DetailSection from "./DetailSection";
+import { launchImageLibrary } from "react-native-image-picker";
 
 const style = StyleSheet.create({
   container: { paddingHorizontal: 10, gap: 50, backgroundColor: "white" },
@@ -56,6 +58,12 @@ const style = StyleSheet.create({
   linkedAccount: {
     marginBottom: 20,
   },
+  selectedImage: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain",
+    marginTop: 20,
+  },
 });
 
 const details = [{}];
@@ -73,6 +81,27 @@ const EditProfile = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [aboutMe, setAboutMe] = useState("");
   const process = 45;
+  const [selectedImage, setSelectedImage] = useState(null);
+  const selectImage = () => {
+    launchImageLibrary(
+      {
+        mediaType: "photo",
+        maxWidth: 300,
+        maxHeight: 300,
+        quality: 1,
+      },
+      (response) => {
+        if (response.didCancel) {
+          console.log("User cancelled image picker");
+        } else if (response.error) {
+          console.log("ImagePicker Error: ", response.error);
+        } else if (response.assets && response.assets.length > 0) {
+          const source = { uri: response.assets[0].uri };
+          setSelectedImage(source);
+        }
+      }
+    );
+  };
 
   return (
     <ScrollView style={style.container}>
@@ -151,6 +180,11 @@ const EditProfile = ({ navigation }) => {
             />
           </View>
         </View>
+
+        <Button title="Select Image" onPress={selectImage} />
+        {selectedImage && (
+          <Image source={selectedImage} style={style.selectedImage} />
+        )}
       </View>
 
       <View style={style.aboutMe}>
