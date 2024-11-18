@@ -12,7 +12,7 @@ import { ProgressBar, Text, Icon, IconButton } from "react-native-paper";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { MaterialIcons as MIcon } from "@expo/vector-icons";
 import DetailSection from "./DetailSection";
-import { launchImageLibrary } from "react-native-image-picker";
+import { ImagePicker } from "react-native-image-picker";
 
 const style = StyleSheet.create({
   container: { paddingHorizontal: 10, gap: 50, backgroundColor: "white" },

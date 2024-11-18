@@ -22,6 +22,11 @@ import { API_ROOT } from "../../utils/constants";
 import { useSelector, useDispatch } from "react-redux";
 import { setAuthOpen } from "../../redux/features/AuthSlice";
 import { setCurrentUser } from "../../redux/features/UserSlice";
+import {
+  signInWithEmailAndPassword,
+  signInAnonymously,
+  getAuth,
+} from "firebase/auth";
 
 function Auth() {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
@@ -31,6 +36,28 @@ function Auth() {
 
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+
+  const loginAnonymously = async () => {
+    try {
+      // const auth = getAuth(); // Lấy đối tượng auth
+      // const userCredential = await signInAnonymously(auth); // Đăng nhập ẩn danh
+      // console.log("User signed in anonymously:", userCredential.user);
+      dispatch(setAuthOpen(false));
+      // Trả về thông tin người dùng
+      // return {
+      //   success: true,
+      //   user: userCredential.user,
+      // };
+    } catch (error) {
+      console.error("Error signing in anonymously:", error);
+
+      // Trả về lỗi
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+  };
 
   const handleLogin = async () => {
     try {
@@ -100,7 +127,7 @@ function Auth() {
             backgroundColor: "#369ae6",
             flexDirection: "row",
           }}
-          onPress={() => console.log("Facebook")}
+          onPress={() => loginAnonymously()}
         >
           <FontAwesome5 name="facebook" size={24} color="white" />
           <Text

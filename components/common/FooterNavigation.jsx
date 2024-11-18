@@ -19,7 +19,7 @@ const ProfilePage = () => {
   return (
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
       <ProfileStack.Screen
-        name="ProfileProfileStack"
+        name="ProfileStack"
         component={Profile}
       ></ProfileStack.Screen>
       <ProfileStack.Screen

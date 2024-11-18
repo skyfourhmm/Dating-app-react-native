@@ -1,85 +1,199 @@
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
-  TouchableWithoutFeedback,
   Modal,
   TouchableOpacity,
+  Switch,
+  StyleSheet,
+  TouchableWithoutFeedback,
 } from "react-native";
-import { Button } from "react-native-paper";
-import { useState, useEffect, useCallback } from "react";
+import { Button, IconButton } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
+import { getAuth, signOut } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { setAuthOpen } from "../../redux/features/AuthSlice";
 
-const SettingModal = ({ status, onClose }) => {
-  const [modalVisible, setModalVisible] = useState(status);
+export default function SettingModal({ status = false, onClose }) {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isOpen, setIsOpen] = useState(status);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setModalVisible(status);
+    setIsOpen(status);
   }, [status]);
 
-  useFocusEffect(
-    useCallback(() => {
-      return () => {
-        setModalVisible(false);
+  const handleClose = () => {
+    setIsOpen(false);
+    onClose();
+  };
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        console.log("User signed out successfully");
+        dispatch(setAuthOpen(true));
+        // Thực hiện các hành động khác sau khi đăng xuất, ví dụ: chuyển hướng đến trang đăng nhập
         onClose();
-      };
-    }, [onClose])
-  );
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  };
+
+  if (!isOpen) return null;
 
   return (
-    // <Modal
-    //   transparent={true}
-    //   visible={modalVisible}
-    //   onRequestClose={onClose}
-    //   animationType="fade"
-    // >
-    <TouchableWithoutFeedback onPress={onClose}>
-      <View style={styles.modalOverlay}>
-        <TouchableWithoutFeedback>
-          <View style={styles.modalContainer}>
-            <Text>Thông tin tài khoản</Text>
-            <Text>Giao diện tối</Text>
-            <Text>Cài đặt thông báo</Text>
-            <Text>Quy tắc cộng đồng</Text>
-            <Text>Quyền riêng tư</Text>
-            <Text>Thông tin phiên bản</Text>
-            <Text>Xóa tài khoản</Text>
-            <TouchableOpacity onPress={onClose}>
-              <Text>Đăng xuất</Text>
-            </TouchableOpacity>
+    <Modal
+      visible={isOpen}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={handleClose}
+    >
+      <TouchableWithoutFeedback onPress={handleClose}>
+        <View style={styles.overlay}>
+          <View style={styles.container}>
+            {/* Header */}
+            <View style={styles.header}>
+              <Text style={styles.headerText}>Cài đặt tài khoản</Text>
+              <IconButton
+                icon="close"
+                size={20}
+                onPress={handleClose}
+                style={styles.iconButton}
+              />
+            </View>
+
+            {/* Options */}
+            <View style={styles.content}>
+              <View style={styles.option}>
+                <View style={styles.optionRow}>
+                  <Text style={styles.optionText}>Giao diện tối</Text>
+                </View>
+                <Switch
+                  value={isDarkMode}
+                  style={styles.switch}
+                  onValueChange={setIsDarkMode}
+                />
+              </View>
+
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Cài đặt thông báo</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Quy tắc cộng đồng</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Quyền riêng tư</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Thông tin phiên bản</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={[styles.button, styles.deleteButton]}>
+                <Text style={[styles.buttonText, styles.deleteText]}>
+                  Xóa tài khoản
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Footer */}
+            <View style={styles.footer}>
+              <Button
+                mode="contained"
+                onPress={handleLogout}
+                style={styles.logoutButton}
+                buttonColor="#DC2626"
+                textColor="#FFFFFF"
+              >
+                Đăng xuất
+              </Button>
+            </View>
           </View>
-        </TouchableWithoutFeedback>
-      </View>
-    </TouchableWithoutFeedback>
-    // </Modal>
+        </View>
+      </TouchableWithoutFeedback>
+    </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  modalContainer: {
-    position: "absolute",
-    top: 45,
-    left: 10,
-    width: 200,
-    backgroundColor: "#ffffff",
-    borderRadius: 5,
-    padding: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+  overlay: {
     flex: 1,
-  },
-  modalOverlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "center",
     alignItems: "center",
   },
+  container: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    width: "90%",
+    maxHeight: "90%",
+    overflow: "hidden",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E5E7EB",
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#1F2937",
+  },
+  iconButton: {
+    padding: 0,
+  },
+  content: {
+    padding: 16,
+  },
+  option: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // marginBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E5E7EB",
+  },
+  switch: {
+    transform: [{ scaleX: 0.85 }, { scaleY: 0.85 }],
+  },
+  optionRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  optionText: {
+    fontSize: 14,
+    // marginLeft: 8,
+    color: "#374151",
+  },
+  button: {
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E5E7EB",
+  },
+  buttonText: {
+    fontSize: 14,
+    color: "#374151",
+  },
+  deleteButton: {
+    marginTop: 8,
+  },
+  deleteText: {
+    color: "#DC2626",
+  },
+  footer: {
+    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: "#E5E7EB",
+  },
+  logoutButton: {
+    borderRadius: 8,
+  },
 });
-export default SettingModal;
