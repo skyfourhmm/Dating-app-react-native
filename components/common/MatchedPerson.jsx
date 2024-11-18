@@ -1,10 +1,10 @@
 import { Dimensions, View, Image, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 import { React } from "react";
-import { userData } from "../assets/fakedata/users";
+import { userData } from "../../assets/fakedata/users";
 import { useSelector } from "react-redux";
-import { API_ROOT } from "../utils/constants";
-import customAxios from "../utils/customAxios";
+import { API_ROOT } from "../../utils/constants";
+import customAxios from "../../utils/customAxios";
 import { useEffect, useState } from "react";
 
 const { width } = Dimensions.get("window");

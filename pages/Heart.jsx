@@ -21,13 +21,14 @@ const { width } = Dimensions.get("window");
 
 function Heart() {
   const [reload, setReload] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const reloadContent = () => {
     setReload((prev) => !prev);
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <HeaderHeart onReload={reloadContent} />
       <SafeAreaView style={{ flex: 1, paddingTop: StatusBar.currentHeight }}>
         <View>

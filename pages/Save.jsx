@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, StyleSheet, View, TextInput } from "react-native";
 import { Text } from "react-native-paper";
-import MatchedPerson from "../components/MatchedPerson";
+import MatchedPerson from "../components/common/MatchedPerson";
 import { useSelector } from "react-redux";
 import MatchedProfile from "../components/common/MatchedProfile";
 import customAxios from "../utils/customAxios";
 import { API_ROOT } from "../utils/constants";
+import HeaderHeart from "@/components/common/HeaderHeart";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
     backgroundColor: "white",
   },
   listPerson: {
@@ -58,6 +58,7 @@ function Save() {
       {Object.keys(dataUser).length !== 0 ? (
         <MatchedProfile dataUser={dataUser} setDataUser={setDataUser} />
       ) : (
+<<<<<<< HEAD
         <View style={{ marginTop: 10, flex: 1 }}>
           <View
             style={{
@@ -79,6 +80,16 @@ function Save() {
                 paddingVertical: 5,
               }}
             />
+=======
+        <View style={{ flex: 1, paddingHorizontal: 10 }}>
+          <View style={{ marginHorizontal: -10 }}>
+            <HeaderHeart />
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <Text variant="displaySmall" style={{ fontWeight: "bold" }}>
+              Matched
+            </Text>
+>>>>>>> 21791fc98098d1c1f130c641ea3ecdac0be08d1c
           </View>
 
           <View>

@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.3",
+<<<<<<< HEAD
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-community/slider": "^4.5.3",
     "@react-navigation/bottom-tabs": "^6.6.1",
@@ -24,6 +25,15 @@
     "@react-navigation/stack": "^6.4.1",
     "@reduxjs/toolkit": "^2.2.7",
     "@rneui/themed": "^4.0.0-rc.8",
+=======
+    "@ptomasroos/react-native-multi-slider": "2.2.2",
+    "@react-native-community/slider": "4.5.3",
+    "@react-navigation/bottom-tabs": "6.6.1",
+    "@react-navigation/drawer": "6.7.2",
+    "@react-navigation/native": "6.0.2",
+    "@react-navigation/stack": "6.4.1",
+    "@reduxjs/toolkit": "2.2.7",
+>>>>>>> 21791fc98098d1c1f130c641ea3ecdac0be08d1c
     "axios": "^1.7.7",
     "clamp": "^1.0.1",
     "expo": "51.0.34",
@@ -35,6 +45,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
+    "firebase": "^11.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.5",
@@ -42,6 +53,7 @@
     "react-native-elements": "^3.4.3",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-gradients": "^2.1.1",
+    "react-native-image-picker": "^7.1.2",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-paper": "^5.12.5",
     "react-native-paper-dropdown": "^2.3.1",

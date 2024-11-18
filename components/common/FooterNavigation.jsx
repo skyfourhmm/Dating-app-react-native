@@ -5,19 +5,28 @@ import Heart from "../../pages/Heart";
 import Save from "../../pages/Save";
 import Chat from "../../pages/Chat";
 import ChatContent from "../Chat/ChatContent";
-import EditProfile from "../EditProfile";
+import EditProfile from "./EditProfile";
 import VideoCall from "../Chat/VideoCall";
+import AccountInfo from "./AccountInfo";
+import Setting from "./Setting";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import ChatPreview from "../Chat/ChatPreview";
 
 const ProfilePage = () => {
-  const Stack = createStackNavigator();
+  const ProfileStack = createStackNavigator();
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="ProfileStack" component={Profile}></Stack.Screen>
-      <Stack.Screen name="EditProfile" component={EditProfile}></Stack.Screen>
-    </Stack.Navigator>
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen
+        name="ProfileStack"
+        component={Profile}
+      ></ProfileStack.Screen>
+      <ProfileStack.Screen
+        name="EditProfile"
+        component={EditProfile}
+      ></ProfileStack.Screen>
+    </ProfileStack.Navigator>
   );
 };
 
@@ -37,11 +46,18 @@ const ChatPage = () => {
       <ChatStack.Screen
         name="ChatContent"
         component={ChatContent}
-        // options={({ route }) => ({
-        //   tabBarStyle: { display: "none" },
-        // })}
       ></ChatStack.Screen>
     </ChatStack.Navigator>
+  );
+};
+
+const DrawerNavigation = () => {
+  const Drawer = createDrawerNavigator();
+  return (
+    <Drawer.Navigator>
+      <Drawer.Screen name="AccountInfo" component={AccountInfo}></Drawer.Screen>
+      <Drawer.Screen name="Setting" component={Setting}></Drawer.Screen>
+    </Drawer.Navigator>
   );
 };
 
