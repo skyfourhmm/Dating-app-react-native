@@ -39,9 +39,9 @@ function Auth() {
 
   const loginAnonymously = async () => {
     try {
-      // const auth = getAuth(); // Lấy đối tượng auth
-      // const userCredential = await signInAnonymously(auth); // Đăng nhập ẩn danh
-      // console.log("User signed in anonymously:", userCredential.user);
+      const auth = getAuth(); // Lấy đối tượng auth
+      const userCredential = await signInAnonymously(auth); // Đăng nhập ẩn danh
+      console.log("User signed in anonymously:", userCredential.user);
       dispatch(setAuthOpen(false));
       // Trả về thông tin người dùng
       // return {

@@ -2,21 +2,31 @@ import { View, Text, StyleSheet, Dimensions } from "react-native";
 
 const { width } = Dimensions.get("window");
 
-const ChatSend = () => {
+const ChatSend = ({ message }) => {
+  const formattedTime = new Date(message.timestamp).toLocaleTimeString(
+    "en-US",
+    {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    }
+  );
+
   return (
     <View style={styles.container}>
-      <Text style={styles.time}>08:42 PM</Text>
-      <Text style={styles.content}>Hi there!</Text>
-      <Text style={styles.status}>Seen</Text>
+      <Text style={styles.content}>{message.text}</Text>
+      <Text style={styles.time}>{formattedTime}</Text>
+      {/* <Text style={styles.status}>Seen</Text> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    gap: 5,
+    // gap: 5,
     textAlign: "right",
     alignItems: "flex-end",
+    marginBottom: 10,
   },
   time: { fontSize: 12, color: "#9599a0" },
   content: {

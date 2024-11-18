@@ -128,6 +128,7 @@ const EditProfile = ({ navigation }) => {
           </View>
         </View>
 
+        {/* Thêm ảnh vào ứng dụng */}
         <Button title="Select Image" onPress={pickImage} />
         {image && (
           <Image

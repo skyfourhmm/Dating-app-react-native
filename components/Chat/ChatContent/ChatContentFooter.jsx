@@ -1,26 +1,16 @@
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Text,
-  TextInput,
-  Keyboard,
-} from "react-native";
+import { StyleSheet, View, Text, TextInput, Keyboard } from "react-native";
 import { IconButton, Icon } from "react-native-paper";
 import Colors from "@/constants/Colors";
 import { useState, useEffect } from "react";
-import { getDatabase, ref, set, onValue } from "firebase/database";
 import { auth } from "@/utils/firebaseConfigWebApp";
-// import { getApps, initializeApp } from "firebase/app";
-// import firebaseConfig from "../utils/firebaseConfigWebApp";
 
-const ChatContentFooter = () => {
+const ChatContentFooter = ({ message, setMessage, onSend }) => {
   const sizeIcon = 20;
-  const [selectedIcon, setSelectedIcon] = useState("lightbulb-outline");
-  const [isShow, setIsShow] = useState(true);
+  const [selectedIcon, setSelectedIcon] = useState(null);
+  const [isShow, setIsShow] = useState(false);
 
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("Oh Fuck Offfff");
+  // const [messages, setMessages] = useState([]);
+  // const [message, setMessage] = useState("Oh Fuck Offfff");
 
   // Khi bàn phím được bật, isShow = false, selectdIcon = null
   useEffect(() => {
@@ -53,6 +43,7 @@ const ChatContentFooter = () => {
   const handlePress = (iconName) => {
     setSelectedIcon(iconName);
     if (selectedIcon === iconName) setSelectedIcon(null);
+    console.log(auth.currentUser.uid);
   };
 
   const handleSendMessage = () => {
@@ -60,39 +51,6 @@ const ChatContentFooter = () => {
     setMessage("");
     console.log(auth.currentUser.uid);
   };
-
-  // const [message, setMessage] = useState("God");
-  // const [messages, setMessages] = useState([]);
-  // const handleSendMessage = () => {
-  //   const db = getDatabase();
-  //   const messageRef = ref(db, "messages/testMessage");
-  //   set(messageRef, {
-  //     text: message,
-  //     timestamp: Date.now(),
-  //   })
-  //     .then(() => {
-  //       console.log("Message sent successfully");
-  //       setMessage(""); // Clear the input after sending the message
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error sending message:", error);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   const db = getDatabase();
-  //   const messagesRef = ref(db, "messages");
-  //   onValue(messagesRef, (snapshot) => {
-  //     const data = snapshot.val();
-  //     if (data) {
-  //       const messagesArray = Object.keys(data).map((key) => ({
-  //         id: key,
-  //         ...data[key],
-  //       }));
-  //       setMessages(messagesArray);
-  //     }
-  //   });
-  // }, []);
 
   return (
     <View style={styles.container}>
@@ -141,6 +99,7 @@ const ChatContentFooter = () => {
           />
         </View>
       </View>
+
       <View style={{ flexDirection: "row" }}>
         <IconButton
           icon="plus-circle-outline"
@@ -216,7 +175,7 @@ const ChatContentFooter = () => {
           icon="send"
           size={sizeIcon}
           iconColor={Colors.light.secondary}
-          onPress={() => handleSendMessage()}
+          onPress={onSend}
         />
       </View>
     </View>
