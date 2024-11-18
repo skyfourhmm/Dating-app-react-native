@@ -12,59 +12,7 @@ import { ProgressBar, Text, Icon, IconButton } from "react-native-paper";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import { MaterialIcons as MIcon } from "@expo/vector-icons";
 import DetailSection from "./DetailSection";
-import { ImagePicker } from "react-native-image-picker";
-
-const style = StyleSheet.create({
-  container: { paddingHorizontal: 10, gap: 50, backgroundColor: "white" },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-    borderBottomWidth: 1,
-    borderColor: "gray",
-  },
-  process: {
-    marginBottom: 20,
-  },
-  photos: {
-    marginBottom: 20,
-  },
-  aboutMe: {
-    marginBottom: 20,
-  },
-  myDetail: {
-    marginBottom: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  myDetail_name: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    gap: 20,
-  },
-  enjoy: {
-    marginBottom: 20,
-  },
-  communicate: {
-    marginBottom: 20,
-  },
-  multiSelectBox: {
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: "#bbb",
-    padding: 5,
-    marginBottom: 6,
-  },
-  linkedAccount: {
-    marginBottom: 20,
-  },
-  selectedImage: {
-    width: 300,
-    height: 300,
-    resizeMode: "contain",
-    marginTop: 20,
-  },
-});
+import * as ImagePicker from "expo-image-picker";
 
 const details = [{}];
 const enjoy = [
@@ -80,27 +28,26 @@ const EditProfile = ({ navigation }) => {
   const [selectedEnjoy, setSelectedEnjoy] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [aboutMe, setAboutMe] = useState("");
+  const [image, setImage] = useState(null);
   const process = 45;
-  const [selectedImage, setSelectedImage] = useState(null);
-  const selectImage = () => {
-    launchImageLibrary(
-      {
-        mediaType: "photo",
-        maxWidth: 300,
-        maxHeight: 300,
+
+  const pickImage = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
         quality: 1,
-      },
-      (response) => {
-        if (response.didCancel) {
-          console.log("User cancelled image picker");
-        } else if (response.error) {
-          console.log("ImagePicker Error: ", response.error);
-        } else if (response.assets && response.assets.length > 0) {
-          const source = { uri: response.assets[0].uri };
-          setSelectedImage(source);
-        }
+      });
+
+      console.log(result);
+
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
       }
-    );
+    } catch (error) {
+      console.error("Error picking image: ", error);
+    }
   };
 
   return (
@@ -181,9 +128,12 @@ const EditProfile = ({ navigation }) => {
           </View>
         </View>
 
-        <Button title="Select Image" onPress={selectImage} />
-        {selectedImage && (
-          <Image source={selectedImage} style={style.selectedImage} />
+        <Button title="Select Image" onPress={pickImage} />
+        {image && (
+          <Image
+            source={{ uri: image }}
+            style={{ height: 100, width: 150, borderWidth: 1 }}
+          />
         )}
       </View>
 
@@ -307,4 +257,56 @@ const EditProfile = ({ navigation }) => {
     </ScrollView>
   );
 };
+const style = StyleSheet.create({
+  container: { paddingHorizontal: 10, gap: 50, backgroundColor: "white" },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: "gray",
+  },
+  process: {
+    marginBottom: 20,
+  },
+  photos: {
+    marginBottom: 20,
+  },
+  aboutMe: {
+    marginBottom: 20,
+  },
+  myDetail: {
+    marginBottom: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  myDetail_name: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    gap: 20,
+  },
+  enjoy: {
+    marginBottom: 20,
+  },
+  communicate: {
+    marginBottom: 20,
+  },
+  multiSelectBox: {
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: "#bbb",
+    padding: 5,
+    marginBottom: 6,
+  },
+  linkedAccount: {
+    marginBottom: 20,
+  },
+  selectedImage: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain",
+    marginTop: 20,
+  },
+});
+
 export default EditProfile;
