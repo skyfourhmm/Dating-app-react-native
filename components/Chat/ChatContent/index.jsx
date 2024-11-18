@@ -49,7 +49,8 @@ const ChatContent = ({ navigation }) => {
       await addDoc(collection(database, "messages"), {
         text: message,
         timestamp: Date.now(),
-        userId: auth.currentUser?.uid || "anonymous",
+        sender: auth.currentUser?.uid || "anonymous",
+        reciver: "anonymous",
       });
       setMessage(""); // Xóa tin nhắn sau khi gửi
     } catch (error) {
