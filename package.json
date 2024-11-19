@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.3",
-<<<<<<< HEAD
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-community/slider": "^4.5.3",
     "@react-navigation/bottom-tabs": "^6.6.1",
@@ -25,15 +24,6 @@
     "@react-navigation/stack": "^6.4.1",
     "@reduxjs/toolkit": "^2.2.7",
     "@rneui/themed": "^4.0.0-rc.8",
-=======
-    "@ptomasroos/react-native-multi-slider": "2.2.2",
-    "@react-native-community/slider": "4.5.3",
-    "@react-navigation/bottom-tabs": "6.6.1",
-    "@react-navigation/drawer": "6.7.2",
-    "@react-navigation/native": "6.0.2",
-    "@react-navigation/stack": "6.4.1",
-    "@reduxjs/toolkit": "2.2.7",
->>>>>>> 21791fc98098d1c1f130c641ea3ecdac0be08d1c
     "axios": "^1.7.7",
     "clamp": "^1.0.1",
     "expo": "51.0.34",
