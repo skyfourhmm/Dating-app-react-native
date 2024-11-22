@@ -3,14 +3,11 @@ import { IconButton, FAB, Button } from "react-native-paper";
 import Colors from "../../constants/Colors";
 import React, { useState } from "react";
 import * as Progress from "react-native-progress";
-import { useNavigation } from "@react-navigation/native";
-import SettingModal from "./SettingModal";
 
 import ModalFilter from "./ModalFilter";
 
-function HeaderHeart() {
+function HeaderProfile({ setDataUser }) {
   const [modalVisible, setModalVisible] = useState(false);
-  const [settingModalVisible, setSettingModalVisible] = useState(false);
 
   return (
     <React.Fragment>
@@ -30,24 +27,11 @@ function HeaderHeart() {
         }}
       >
         <View style={{ flexDirection: "row", width: 60 }}>
-          <View style={{ width: 30 }}>
-            <IconButton
-              icon={settingModalVisible ? "close" : "menu"}
-              size={24}
-              onPress={() => setSettingModalVisible(!settingModalVisible)}
-            />
-            {settingModalVisible && (
-              <SettingModal
-                status={modalVisible}
-                onClose={() => setSettingModalVisible(false)}
-              />
-            )}
-          </View>
           <View style={{ width: 30, paddingLeft: 10 }}>
             <IconButton
-              icon="reload"
-              size={24}
-              onPress={() => console.log("reload")}
+              icon="arrow-left"
+              size={26}
+              onPress={() => setDataUser({})}
             />
           </View>
         </View>
@@ -88,4 +72,4 @@ function HeaderHeart() {
   );
 }
 
-export default HeaderHeart;
+export default HeaderProfile;

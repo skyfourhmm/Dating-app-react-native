@@ -6,23 +6,8 @@ import { useSelector } from "react-redux";
 import MatchedProfile from "../components/common/MatchedProfile";
 import customAxios from "../utils/customAxios";
 import { API_ROOT } from "../utils/constants";
-import HeaderHeart from "@/components/common/HeaderHeart";
 
 import AntDesign from "@expo/vector-icons/AntDesign";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-  },
-  listPerson: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-    alignItems: "center",
-    marginTop: 10,
-  },
-});
 
 function Save() {
   const currentUser = useSelector((state) => state.user);
@@ -58,7 +43,6 @@ function Save() {
       {Object.keys(dataUser).length !== 0 ? (
         <MatchedProfile dataUser={dataUser} setDataUser={setDataUser} />
       ) : (
-<<<<<<< HEAD
         <View style={{ marginTop: 10, flex: 1 }}>
           <View
             style={{
@@ -67,33 +51,23 @@ function Save() {
               marginBottom: 10,
             }}
           >
-            <View style={{ paddingRight: 15 }}>
+            <View style={{ paddingHorizontal: 15 }}>
               <AntDesign name="arrowleft" size={24} color="black" />
             </View>
             <TextInput
               placeholder="Find someone you've matched with..."
               style={{
-                width: "90%",
+                width: "80%",
                 backgroundColor: "#f3f4f6",
                 borderRadius: 20,
                 paddingHorizontal: 20,
                 paddingVertical: 5,
               }}
             />
-=======
-        <View style={{ flex: 1, paddingHorizontal: 10 }}>
-          <View style={{ marginHorizontal: -10 }}>
-            <HeaderHeart />
-          </View>
-          <View style={{ marginTop: 10 }}>
-            <Text variant="displaySmall" style={{ fontWeight: "bold" }}>
-              Matched
-            </Text>
->>>>>>> 21791fc98098d1c1f130c641ea3ecdac0be08d1c
           </View>
 
-          <View>
-            <Text variant="bodyMedium" style={{}}>
+          <View style={{ marginHorizontal: 16 }}>
+            <Text variant="bodyMedium" style={{ fontSize: 16 }}>
               There are those whom you matched with or who were matched.
             </Text>
           </View>
@@ -112,5 +86,20 @@ function Save() {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  listPerson: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    alignItems: "center",
+    marginTop: 10,
+    paddingHorizontal: 10,
+  },
+});
 
 export default Save;

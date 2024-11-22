@@ -43,7 +43,7 @@ export default function useTinderCards() {
           const userdb = response.data.profile.filter(
             (user) =>
               user._id !== currentUser.profile._id &&
-              !newGetProfile.listMatched.includes(user.userId)
+              !newGetProfile?.listMatched.includes(user.userId)
           );
           setData(userdb);
         } else {
@@ -95,7 +95,7 @@ export default function useTinderCards() {
 
         if (
           currentData.userId &&
-          !newGetProfile.listMatched.includes(currentData.userId)
+          !newGetProfile?.listMatched.includes(currentData.userId)
         ) {
           newProject = {
             ...newGetProfile,
