@@ -8,7 +8,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Keyboard } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
-const ChatContent = ({ navigation }) => {
+const ChatContent = ({ navigation, route }) => {
   const [isShow, setIsShow] = useState(true);
   const handleClose = () => {
     setIsShow(!isShow);
@@ -22,9 +22,11 @@ const ChatContent = ({ navigation }) => {
     return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined });
   }, [navigation]);
 
+  const { user } = route.params || {};
+
   return (
     <View style={{ backgroundColor: "white", flex: 1, position: "relative" }}>
-      <ChatContentHeader />
+      <ChatContentHeader user={user} />
       <View style={{ paddingHorizontal: 10 }}>
         <Text style={{ color: "gray", textAlign: "center", marginTop: 20 }}>
           Today

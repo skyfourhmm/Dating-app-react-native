@@ -9,7 +9,7 @@ const ChatPreview = ({ user }) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("ChatContent")}
+      onPress={() => navigation.navigate("ChatContent", { user: user })}
     >
       <View style={{ flex: 1, flexDirection: "row" }}>
         <ChatAvatar

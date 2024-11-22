@@ -27,7 +27,7 @@ function Chat() {
         </Text>
         <View style={styles.matches}>
           {data.map((user) => (
-            <ChatAvatar user={user} />
+            <ChatAvatar key={user.userId} user={user} />
           ))}
         </View>
       </View>
@@ -48,7 +48,7 @@ function Chat() {
         <ScrollView>
           <View style={styles.chats}>
             {data.map((user) => (
-              <ChatPreview user={user} />
+              <ChatPreview key={user.userId} user={user} />
             ))}
           </View>
         </ScrollView>
