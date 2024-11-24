@@ -27,7 +27,7 @@ function Chat() {
         </Text>
         <View style={styles.matches}>
           {data.map((user) => (
-            <ChatAvatar key={user.userId} user={user} />
+            <ChatAvatar key={user.userId} image={user?.imageUrl?.mainPhoto} />
           ))}
         </View>
       </View>

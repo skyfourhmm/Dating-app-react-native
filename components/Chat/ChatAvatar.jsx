@@ -1,9 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Avatar } from "react-native-paper";
-import { userData } from "../../assets/fakedata/users";
 
 const ChatAvatar = ({ sizeImage = 100, sizeStatus = 20, image }) => {
-  const avatar = userData[0].imageUrl.mainPhoto;
   return (
     <View style={styles.container}>
       <Avatar.Image size={sizeImage} source={{ uri: image }} />

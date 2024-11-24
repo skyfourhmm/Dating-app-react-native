@@ -41,7 +41,7 @@ const ChatContentHeader = ({ user }) => {
       <View style={{ flexDirection: "row", gap: 10 }}>
         <View style={{ flex: 1 }}>
           <Image
-            source={{ uri: user?.imageUrl.mainPhoto }}
+            source={{ uri: user?.imageUrl?.mainPhoto }}
             style={{ height: 100, width: 100, borderRadius: 10 }}
             resizeMode="cover"
           />
