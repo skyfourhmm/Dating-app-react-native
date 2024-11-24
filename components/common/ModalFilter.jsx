@@ -406,6 +406,9 @@ function ModalFilter({ modalVisible, setModalVisible }) {
                       paddingVertical: 20,
                       borderRadius: 10,
                     }}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                    }}
                   >
                     <Text
                       style={{

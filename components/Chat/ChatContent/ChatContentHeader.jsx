@@ -6,7 +6,7 @@ import { useNavigation } from "expo-router";
 
 const MORE_ICON = Platform.OS === "ios" ? "dots-horizontal" : "dots-vertical";
 
-const ChatContentHeader = () => {
+const ChatContentHeader = ({ user }) => {
   const navigation = useNavigation();
 
   return (
@@ -41,7 +41,7 @@ const ChatContentHeader = () => {
       <View style={{ flexDirection: "row", gap: 10 }}>
         <View style={{ flex: 1 }}>
           <Image
-            source={{ uri: userData[0]?.imageUrl.mainPhoto }}
+            source={{ uri: user?.imageUrl.mainPhoto }}
             style={{ height: 100, width: 100, borderRadius: 10 }}
             resizeMode="cover"
           />
@@ -59,7 +59,7 @@ const ChatContentHeader = () => {
               style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
             >
               <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-                Ava Jones, 25
+                {`${user?.name}, ${user?.age}`}
               </Text>
               <Icon source="shield-check" color="#379ae6" size={12} />
             </View>
@@ -88,13 +88,13 @@ const ChatContentHeader = () => {
                 borderRadius: 20,
               }}
             >
-              she/ her/ hers
+              {user?.gender}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
             <Icon source="folder-outline" color="gray" size={20} />
-            <Text>Business Analyst at Tech</Text>
+            <Text>{user?.job}</Text>
           </View>
         </View>
       </View>

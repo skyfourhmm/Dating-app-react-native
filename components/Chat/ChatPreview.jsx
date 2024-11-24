@@ -3,21 +3,25 @@ import ChatAvatar from "./ChatAvatar";
 
 import { useNavigation } from "@react-navigation/native";
 
-const ChatPreview = () => {
+const ChatPreview = ({ user }) => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("ChatContent")}
+      onPress={() => navigation.navigate("ChatContent", { user: user })}
     >
       <View style={{ flex: 1, flexDirection: "row" }}>
-        <ChatAvatar sizeImage={50} sizeStatus={10} />
+        <ChatAvatar
+          sizeImage={50}
+          sizeStatus={10}
+          image={user?.imageUrl?.mainPhoto}
+        />
       </View>
 
       <View style={{ flex: 10, gap: 5 }}>
         <View style={styles.name}>
-          <Text style={{ fontWeight: "bold", fontSize: 16 }}>Ava Jones</Text>
+          <Text style={{ fontWeight: "bold", fontSize: 16 }}>{user.name}</Text>
           <Text style={{ color: "#6f7984", fontSize: 13 }}>1 hours ago</Text>
         </View>
         <View style={{ flexDirection: "row", gap: 5 }}>

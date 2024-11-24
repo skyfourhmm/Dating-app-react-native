@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import HeaderChat from "../components/Chat/HeaderChat";
 import ChatAvatar from "../components/Chat/ChatAvatar";
 import ChatPreview from "../components/Chat/ChatPreview";
 import { Icon } from "react-native-paper";
+import customAxios from "../utils/customAxios";
+import { API_ROOT } from "../utils/constants";
 
 function Chat() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await customAxios.get(`${API_ROOT}/user/allUser`);
+      setData(response.data.profile);
+    };
+    fetchData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <HeaderChat />
@@ -15,10 +26,9 @@ function Chat() {
           Matches <Text>(7)</Text>
         </Text>
         <View style={styles.matches}>
-          <ChatAvatar />
-          <ChatAvatar />
-          <ChatAvatar />
-          <ChatAvatar />
+          {data.map((user) => (
+            <ChatAvatar key={user.userId} user={user} />
+          ))}
         </View>
       </View>
 
@@ -37,9 +47,9 @@ function Chat() {
         </View>
         <ScrollView>
           <View style={styles.chats}>
-            <ChatPreview />
-            <ChatPreview />
-            <ChatPreview />
+            {data.map((user) => (
+              <ChatPreview key={user.userId} user={user} />
+            ))}
           </View>
         </ScrollView>
       </View>

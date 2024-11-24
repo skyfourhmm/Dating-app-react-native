@@ -11,6 +11,7 @@ const { width } = Dimensions.get("window");
 
 const MatchedPerson = ({ userId, handleMatched }) => {
   const [user, setUser] = useState({});
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -28,7 +29,7 @@ const MatchedPerson = ({ userId, handleMatched }) => {
     };
 
     fetchUsers();
-  }, [userId]);
+  }, []);
 
   return (
     <TouchableOpacity onPress={() => handleMatched(user)} key={userId}>

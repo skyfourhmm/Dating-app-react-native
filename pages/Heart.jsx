@@ -31,7 +31,7 @@ function Heart() {
     <View style={{ flex: 1, backgroundColor: "white" }}>
       <HeaderHeart onReload={reloadContent} />
       <SafeAreaView style={{ flex: 1, paddingTop: StatusBar.currentHeight }}>
-        <ScrollView>
+        <View>
           {true ? (
             <SwipeableCards idUser={1} reload={reload} />
           ) : (
@@ -152,7 +152,7 @@ function Heart() {
               </Text>
             </View>
           )}
-        </ScrollView>
+        </View>
       </SafeAreaView>
     </View>
   );
