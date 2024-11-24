@@ -6,15 +6,40 @@ import ChatPreview from "../components/Chat/ChatPreview";
 import { Icon } from "react-native-paper";
 import customAxios from "../utils/customAxios";
 import { API_ROOT } from "../utils/constants";
+import { useSelector } from "react-redux";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 function Chat() {
   const [data, setData] = useState([]);
+  const currentUser = useSelector((state) => state.user);
+
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await customAxios.get(`${API_ROOT}/user/allUser`);
-      setData(response.data.profile);
+    const getlistIdMessenger = async () => {
+      const response = await customAxios.get(
+        `${API_ROOT}/user/profile/${currentUser.profile.userId}`
+      );
+      if (response.status === 200) {
+        return response.data.listMessenger;
+      } else {
+        console.log("Lỗi:", response.data.message);
+      }
     };
-    fetchData();
+
+    const getListUser = async () => {
+      const listId = await getlistIdMessenger();
+      listId.map(async (id) => {
+        const response = await customAxios.get(
+          `${API_ROOT}/user/profile/${id}`
+        );
+        if (response.status === 200) {
+          setData((prev) => [...prev, response.data]);
+        } else {
+          console.log("Lỗi:", response.data.message);
+        }
+      });
+    };
+
+    getListUser();
   }, []);
 
   return (

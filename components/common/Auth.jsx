@@ -7,6 +7,8 @@ import {
   Keyboard,
   TextInput,
 } from "react-native";
+import * as Progress from "react-native-progress";
+import Colors from "../../constants/Colors";
 import { Text } from "react-native-paper";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -27,9 +29,11 @@ import {
   signInAnonymously,
   getAuth,
 } from "firebase/auth";
+import { set } from "firebase/database";
 
 function Auth() {
   const [isLoginModalVisible, setIsLoginModalVisible] = useState(false);
+  const [isSignUpModalVisible, setIsSignUpModalVisible] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("0935019843");
   const [password, setPassword] = useState("thientu");
   const [ishidePassword, setHidePassword] = useState(true);
@@ -168,7 +172,7 @@ function Auth() {
         </TouchableOpacity>
       </View>
 
-      {/* Model */}
+      {/* Model Login*/}
       <Modal
         animationType="slide" // Kiểu animation
         transparent={true} // Để nền có thể mờ đi
@@ -287,7 +291,12 @@ function Auth() {
                 }}
               >
                 <Text>Don't have an account? </Text>
-                <TouchableOpacity onPress={() => console.log(3242)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setIsLoginModalVisible(false);
+                    setIsSignUpModalVisible(true);
+                  }}
+                >
                   <Text style={{ color: "#00bdd6", fontWeight: "bold" }}>
                     Sign up
                   </Text>
@@ -295,6 +304,52 @@ function Auth() {
               </View>
             </View>
           </TouchableWithoutFeedback>
+        </View>
+      </Modal>
+
+      {/* Model Sign up*/}
+      <Modal
+        animationType="slide" // Kiểu animation
+        transparent={true} // Để nền có thể mờ đi
+        visible={isSignUpModalVisible} // Hiển thị hoặc ẩn modal
+        onRequestClose={() => {
+          setIsLoginModalVisible(true);
+          setIsSignUpModalVisible(false);
+        }} // Đóng modal khi bấm nút back
+      >
+        <View
+          style={{ flex: 1, backgroundColor: "#c8f9ff", paddingHorizontal: 20 }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              setIsSignUpModalVisible(false);
+              setIsLoginModalVisible(true);
+            }}
+            style={{
+              paddingTop: 20,
+              borderRadius: 10,
+            }}
+          >
+            <AntDesign name="arrowleft" size={26} color="black" />
+          </TouchableOpacity>
+          <View
+            style={{
+              width: "50%",
+              flexDirection: "row",
+              marginHorizontal: "auto",
+              borderRadius: 50,
+              justifyContent: "center",
+            }}
+          >
+            <Progress.Bar
+              progress={0.5}
+              width={150}
+              height={6}
+              borderWidth={0}
+              unfilledColor={Colors.light.primary}
+              color={Colors.light.secondary}
+            />
+          </View>
         </View>
       </Modal>
     </View>
