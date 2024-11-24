@@ -6,7 +6,6 @@ import ChatPreview from "../components/Chat/ChatPreview";
 import { Icon } from "react-native-paper";
 import customAxios from "../utils/customAxios";
 import { API_ROOT } from "../utils/constants";
-import { useSelector } from "react-redux";
 
 function Chat() {
   const [data, setData] = useState([]);
