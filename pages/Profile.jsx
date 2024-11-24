@@ -4,9 +4,8 @@ import { Avatar, Button, Checkbox, Icon, IconButton } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
 import { userData } from "../assets/fakedata/users";
 import * as Progress from "react-native-progress";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import SettingModal from "../components/common/SettingModal";
-import { useFocusEffect } from "@react-navigation/native";
 
 const styles = StyleSheet.create({
   container: {

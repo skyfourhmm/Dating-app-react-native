@@ -4,6 +4,7 @@ import ChatContentFooter from "./ChatContentFooter";
 import ChatSend from "./ChatSend";
 import ChatReceive from "./ChatReveice";
 import { useEffect, useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import { auth, database } from "@/utils/firebaseConfigWebApp";
 import {
   collection,
@@ -19,9 +20,7 @@ const ChatContent = ({ navigation, route }) => {
   const [message, setMessage] = useState("");
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const flatListRef = useRef(null);
-
-  // console.log("auth", auth.currentUser.uid);
-  console.log("user", user);
+  const currentUser = useSelector((state) => state.user);
 
   useEffect(() => {
     // Lắng nghe dữ liệu tin nhắn real-time từ Firestore
@@ -50,13 +49,13 @@ const ChatContent = ({ navigation, route }) => {
     if (!message.trim()) return; // Kiểm tra tin nhắn rỗng
 
     try {
+      setMessage(""); // Xóa tin nhắn sau khi gửi
       await addDoc(collection(database, "messages"), {
         text: message,
         timestamp: Date.now(),
-        sender: auth.currentUser?.uid || "anonymous",
-        reciver: "anonymous",
+        sender: currentUser.profile.userId || "sender",
+        reciver: user.userId || "reciver",
       });
-      setMessage(""); // Xóa tin nhắn sau khi gửi
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -76,7 +75,7 @@ const ChatContent = ({ navigation, route }) => {
         setKeyboardVisible(true);
         setTimeout(
           () => flatListRef.current?.scrollToEnd({ animated: true }),
-          100
+          10
         );
       }
     );
@@ -109,7 +108,7 @@ const ChatContent = ({ navigation, route }) => {
           data={messages}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) =>
-            item.userId === auth.currentUser?.uid ? (
+            item.sender === currentUser.profile.userId ? (
               <ChatSend message={item} />
             ) : (
               <ChatReceive message={item} />
