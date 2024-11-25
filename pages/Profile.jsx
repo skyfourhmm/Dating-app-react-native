@@ -6,6 +6,7 @@ import { userData } from "../assets/fakedata/users";
 import * as Progress from "react-native-progress";
 import { useState } from "react";
 import SettingModal from "../components/common/SettingModal";
+import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   container: {
@@ -94,6 +95,9 @@ const Stack = createStackNavigator();
 
 function Profile({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const currentUser = useSelector((state) => state.user);
+
+  console.log(currentUser);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -158,7 +162,7 @@ function Profile({ navigation }) {
               style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
             >
               <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-                Joshua Edwards, 29
+                {currentUser.profile.name}, {currentUser.profile.age}
               </Text>
               <Icon source="shield-check" color="gray" size={12} />
             </View>

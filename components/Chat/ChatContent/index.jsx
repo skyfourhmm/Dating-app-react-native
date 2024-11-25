@@ -12,6 +12,7 @@ import {
   orderBy,
   query,
   onSnapshot,
+  where,
 } from "firebase/firestore";
 
 const ChatContent = ({ navigation, route }) => {
@@ -21,13 +22,26 @@ const ChatContent = ({ navigation, route }) => {
   const [keyboardVisible, setKeyboardVisible] = useState(false);
   const flatListRef = useRef(null);
   const currentUser = useSelector((state) => state.user);
+  const conversationId =
+    currentUser.profile.userId < user.userId
+      ? `${currentUser.profile.userId}_${user.userId}`
+      : `${user.userId}_${currentUser.profile.userId}`;
+
+  // console.log("user", user.userId);
+  // console.log("currentUser", currentUser.profile.userId);
+  // console.log("conversationId", conversationId);
+  // console.log("messages", messages);
 
   useEffect(() => {
     // Lắng nghe dữ liệu tin nhắn real-time từ Firestore
     const messagesQuery = query(
       collection(database, "messages"),
+      // where("senderId", "==", currentUser.profile.userId),
+      // where("receiverId", "==", user.userId),
+      where("conversationId", "==", conversationId),
       orderBy("timestamp", "asc")
     );
+
     const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
       const fetchedMessages = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -43,7 +57,7 @@ const ChatContent = ({ navigation, route }) => {
     });
 
     return unsubscribe; // Cleanup listener
-  }, []);
+  }, [currentUser, user]);
 
   const sendMessage = async () => {
     if (!message.trim()) return; // Kiểm tra tin nhắn rỗng
@@ -53,8 +67,9 @@ const ChatContent = ({ navigation, route }) => {
       await addDoc(collection(database, "messages"), {
         text: message,
         timestamp: Date.now(),
-        sender: currentUser.profile.userId || "sender",
-        reciver: user.userId || "reciver",
+        senderId: currentUser.profile.userId || "sender",
+        receiverId: user.userId || "receiver",
+        conversationId,
       });
     } catch (error) {
       console.error("Error sending message:", error);
@@ -108,7 +123,7 @@ const ChatContent = ({ navigation, route }) => {
           data={messages}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) =>
-            item.sender === currentUser.profile.userId ? (
+            item.senderId === currentUser.profile.userId ? (
               <ChatSend message={item} />
             ) : (
               <ChatReceive message={item} />

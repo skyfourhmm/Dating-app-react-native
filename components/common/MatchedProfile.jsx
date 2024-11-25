@@ -70,13 +70,24 @@ function MatchedProfile({ dataUser, setDataUser }) {
 
   const handleUpdateMes = async (user) => {
     const newGetProfile = await getCurrentUser();
+
     const newList = newGetProfile?.listMessenger;
+    const userList = user?.listMessenger;
+
     if (!newGetProfile?.listMessenger.includes(user.userId)) {
       newList.push(user.userId);
     }
 
+    if (!user?.listMessenger.includes(newGetProfile.userId)) {
+      userList.push(newGetProfile.userId);
+    }
+
     const newListMatch = newGetProfile?.listMatched.filter(
       (userId) => userId !== user.userId
+    );
+
+    const newUserListMatch = user?.listMatched.filter(
+      (userId) => userId !== newGetProfile.userId
     );
 
     const newProject = {
@@ -85,8 +96,15 @@ function MatchedProfile({ dataUser, setDataUser }) {
       listMessenger: [...newList],
     };
 
-    if (newProject) {
+    const newUserProject = {
+      ...user,
+      listMatched: [...newUserListMatch],
+      listMessenger: [...userList],
+    };
+
+    if (newProject && newUserProject) {
       await handleUpdateMatched(newProject, newGetProfile.userId);
+      await handleUpdateMatched(newUserProject, user.userId);
     }
     setDataUser({});
   };
