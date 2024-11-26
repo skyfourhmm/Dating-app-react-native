@@ -43,7 +43,8 @@ export default function useTinderCards() {
           const userdb = response.data.profile.filter(
             (user) =>
               user._id !== currentUser.profile._id &&
-              !newGetProfile?.listMatched.includes(user.userId)
+              !newGetProfile?.listMatched.includes(user.userId) &&
+              !newGetProfile?.listMessenger.includes(user.userId)
           );
           setData(userdb);
         } else {
