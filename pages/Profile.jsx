@@ -97,8 +97,6 @@ function Profile({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const currentUser = useSelector((state) => state.user);
 
-  console.log(currentUser);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.menu}>
@@ -131,7 +129,7 @@ function Profile({ navigation }) {
           >
             <Avatar.Image
               size={100}
-              source={{ uri: userData[0]?.imageUrl.mainPhoto }}
+              source={{ uri: currentUser.profile.imageUrl.mainPhoto }}
             />
             <Progress.Circle
               size={100}
