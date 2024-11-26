@@ -47,7 +47,7 @@ function Chat() {
 
       <View style={{ marginTop: 10 }}>
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-          Matches <Text>(7)</Text>
+          Matches <Text>{data.length}</Text>
         </Text>
         <View style={styles.matches}>
           {data.map((user) => (
