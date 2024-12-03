@@ -11,6 +11,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
+import { Chip, Icon } from "react-native-paper";
 import * as Progress from "react-native-progress";
 import Colors from "../../constants/Colors";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -20,6 +21,8 @@ import React, { useState, useRef } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+
+import { MultiSelect } from "react-native-element-dropdown";
 
 import customAxios from "../../utils/customAxios";
 import { API_ROOT } from "../../utils/constants";
@@ -33,6 +36,7 @@ import {
   getAuth,
 } from "firebase/auth";
 import { get, set } from "firebase/database";
+import TagChip from "./TagChip";
 
 const ITEM_HEIGHT = 50;
 const VISIBLE_ITEMS = 7;
@@ -47,6 +51,10 @@ function Auth() {
   const [currentScreen, setCurrentScreen] = useState("Screen1");
   const [isName, setIsName] = useState("");
   const [isGender, setIsGender] = useState("male");
+  const [isJob, setIsJob] = useState("");
+  const [isDescription, setIsDescription] = useState("");
+  const [isLanguage, setIsLanguage] = useState("");
+  const [selectedChips, setSelectedChips] = useState([]);
 
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -131,10 +139,7 @@ function Auth() {
     const isNearby = Math.abs(age - selectedAge) <= 2;
 
     return (
-      <View
-        key={age}
-        style={[styles.ageItem, isSelected && styles.selectedAge]}
-      >
+      <View key={age} style={[styles.ageItem, isSelected]}>
         <Text
           style={[
             styles.ageText,
@@ -148,6 +153,64 @@ function Auth() {
     );
   };
   // --------------
+
+  // Languages
+  const LANGUAGES = [
+    { label: "English", value: "en" },
+    { label: "Vietnamese", value: "vi" },
+    { label: "Spanish", value: "es" },
+    { label: "French", value: "fr" },
+    { label: "Chinese", value: "zh" },
+    { label: "Japanese", value: "ja" },
+    { label: "Korean", value: "ko" },
+    { label: "German", value: "de" },
+    { label: "Russian", value: "ru" },
+    { label: "Portuguese", value: "pt" },
+  ];
+
+  // Chip ------------
+  const chipsData = [
+    {
+      id: 1,
+      label: "Travel",
+      icon: "book",
+    },
+    {
+      id: 2,
+      label: "Work",
+      icon: "book",
+    },
+    {
+      id: 3,
+      label: "Study",
+      icon: "book",
+    },
+    {
+      id: 4,
+      label: "Leisure",
+      icon: "book",
+    },
+    {
+      id: 5,
+      label: "Fitness",
+      icon: "book",
+    },
+    {
+      id: 6,
+      label: "Cooking",
+      icon: "book",
+    },
+  ];
+  const handleChipPress = (chip) => {
+    console.log("Chip:", chip.icon);
+    // if (selectedChips.includes(chip)) {
+    //   // Nếu đã chọn, bỏ chọn
+    //   setSelectedChips(selectedChips.filter((item) => item !== chip));
+    // } else {
+    //   // Nếu chưa chọn, thêm vào
+    //   setSelectedChips([...selectedChips, chip]);
+    // }
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -637,6 +700,7 @@ function Auth() {
                   borderRadius: 100,
                   justifyContent: "center",
                   marginTop: 20,
+                  marginBottom: 150,
                 }}
                 onPress={() => setIsGender("male")}
               >
@@ -667,6 +731,241 @@ function Auth() {
                   flexDirection: "row",
                 }}
                 onPress={() => setCurrentScreen("Screen5")}
+              >
+                <MaterialIcons name="login" size={24} color="white" />
+                <Text style={{ color: "#fff", fontSize: 18, marginLeft: 20 }}>
+                  Continue
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          {currentScreen === "Screen5" && (
+            <View
+              style={{
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 150,
+              }}
+            >
+              <Text style={{ fontSize: 26, fontWeight: 700 }}>
+                I am Looking for...
+              </Text>
+              <Text style={{ marginBottom: 20, textAlign: "center" }}>
+                Provide us with further insights into your preferences
+              </Text>
+
+              <View
+                style={{
+                  backgroundColor: "#fff",
+                  flexDirection: "row",
+                  marginHorizontal: 20,
+                  borderRadius: 1000,
+                  paddingHorizontal: 20,
+                  height: 60,
+                  alignItems: "center",
+                  marginBottom: 20,
+                }}
+              >
+                <MaterialIcons name="work-outline" size={24} color="black" />
+                <TextInput
+                  style={{
+                    flex: 1,
+                    marginLeft: 10,
+                    paddingVertical: 0,
+                    height: 40,
+                    backgroundColor: "#fff",
+                  }}
+                  placeholder="Your job is? "
+                  value={isJob}
+                  onChangeText={setIsJob}
+                />
+              </View>
+
+              <View
+                style={{
+                  backgroundColor: "#fff",
+                  flexDirection: "row",
+                  marginHorizontal: 20,
+                  borderRadius: 1000,
+                  paddingHorizontal: 20,
+                  height: 60,
+                  alignItems: "center",
+                }}
+              >
+                <TouchableOpacity>
+                  <MaterialIcons name="description" size={24} color="black" />
+                </TouchableOpacity>
+                <TextInput
+                  style={{
+                    flex: 1,
+                    marginLeft: 10,
+                    paddingVertical: 0,
+                    height: 40,
+                    backgroundColor: "#fff",
+                  }}
+                  placeholder="A few descriptions about you"
+                  value={isDescription} // Giá trị ô nhập mật khẩu
+                  onChangeText={setIsDescription} // Cập nhật trạng thái khi thay đổi
+                />
+              </View>
+
+              <MultiSelect
+                style={{
+                  height: 60,
+                  width: "87%",
+                  backgroundColor: "#fff",
+                  paddingHorizontal: 10,
+                  borderRadius: 1000,
+                  marginTop: 20,
+                }}
+                placeholderStyle={{ fontSize: 16 }}
+                selectedTextStyle={{ fontSize: 14 }}
+                inputSearchStyle={{ height: 40, fontSize: 16 }}
+                iconStyle={{ width: 20, height: 20 }}
+                search
+                data={LANGUAGES}
+                labelField="label"
+                valueField="value"
+                placeholder="Select languages"
+                searchPlaceholder="Search..."
+                value={isLanguage}
+                onChange={(item) => {
+                  setIsLanguage(item);
+                }}
+                renderLeftIcon={() => (
+                  <Icon source="earth" size={24} style={{}} />
+                )}
+                selectedStyle={{
+                  borderRadius: 50,
+                }}
+              />
+
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#00bdd6",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 60,
+                  borderRadius: 100,
+                  marginTop: 20,
+                  flexDirection: "row",
+                }}
+                onPress={() => setCurrentScreen("Screen6")}
+              >
+                <MaterialIcons name="login" size={24} color="white" />
+                <Text style={{ color: "#fff", fontSize: 18, marginLeft: 20 }}>
+                  Continue
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          {currentScreen === "Screen6" && (
+            <View
+              style={{
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 150,
+              }}
+            >
+              <Text style={{ fontSize: 26, fontWeight: 700 }}>
+                Select up to 3 interest
+              </Text>
+              <Text style={{ marginBottom: 20, textAlign: "center" }}>
+                Tell us what piques your curiosity and passions
+              </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                }}
+              >
+                <Chip
+                  avatar={
+                    <FontAwesome
+                      name="book"
+                      size={24}
+                      color={Colors.light.secondary}
+                    />
+                  }
+                  style={{
+                    backgroundColor: "#fff",
+                    borderRadius: 100,
+                    marginTop: 8,
+                    marginRight: 8,
+                    paddingHorizontal: 2,
+                  }}
+                >
+                  <Text style={{ color: "#000" }}>Travel</Text>
+                </Chip>
+
+                <Chip
+                  avatar={<FontAwesome name="book" size={24} color="#fff" />}
+                  style={{
+                    backgroundColor: Colors.light.secondary,
+                    borderRadius: 100,
+                    marginTop: 8,
+                    marginRight: 8,
+                    paddingHorizontal: 2,
+                  }}
+                >
+                  <Text style={{ color: "#fff" }}>Travel</Text>
+                </Chip>
+
+                {chipsData.map(
+                  (chip, index) => (
+                    console.log("Chip:", selectedChips.includes(chip)),
+                    (
+                      <Chip
+                        key={index}
+                        avatar={
+                          <FontAwesome
+                            name={chip.icon}
+                            size={24}
+                            color="#000"
+                          />
+                        }
+                        style={{
+                          backgroundColor: selectedChips.includes(chip)
+                            ? Colors.light.secondary
+                            : "#fff",
+                          borderRadius: 100,
+                          marginTop: 8,
+                          marginRight: 8,
+                          paddingHorizontal: 2,
+                        }}
+                        onPress={() => handleChipPress(chip)}
+                      >
+                        <Text
+                          style={{
+                            color: true ? "#000" : "#fff",
+                          }}
+                        >
+                          {chip.label}
+                        </Text>
+                      </Chip>
+                    )
+                  )
+                )}
+              </View>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#00bdd6",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 60,
+                  borderRadius: 100,
+                  marginTop: 20,
+                  flexDirection: "row",
+                  marginTop: 300,
+                }}
+                onPress={() => setCurrentScreen("Screen7")}
               >
                 <MaterialIcons name="login" size={24} color="white" />
                 <Text style={{ color: "#fff", fontSize: 18, marginLeft: 20 }}>
@@ -716,11 +1015,6 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     alignItems: "center",
     justifyContent: "center",
-  },
-  selectedAge: {
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: Colors.light.secondary,
   },
   ageText: {
     fontSize: 24,
